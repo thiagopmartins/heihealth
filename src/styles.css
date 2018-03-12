@@ -32,8 +32,11 @@
     margin-right: auto; 
     margin-top: 3%;   
 }
-.centralizar-texto {
-    text-align: center;
+.centralizado {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .login-title{
     margin-top: -0.4rem;
