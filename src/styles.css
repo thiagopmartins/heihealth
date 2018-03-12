@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+.login-wrapper .login:after {
+    background: #FFF !important;
+}
+.login-wrapper .login {
+    min-height: 49vh !important;
+    background: none !important;
+}
+.login-wrapper {
+    background: none !important;
+}
+.hint{
+    margin-top: 0.5rem !important;
+}
+.login-group{
+    border: 1px solid #d8dee2;
+    padding: 1.5rem !important;
+    font-size: 0.6rem !important;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);  
+}
+#login_username{
+    margin-top: 1.0rem !important;
+}
+.login-wrapper .login .login-group .btn {
+    margin-top: 1.0rem !important
+}
+.logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+    margin-top: 3%;   
+}
+.centralizar-texto {
+    text-align: center;
+}
+.login-title{
+    margin-top: -0.4rem;
+    margin-bottom: 1.0rem;
+    font-weight: 400;
+    text-align: center;
+
+}
