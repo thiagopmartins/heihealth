@@ -5,17 +5,37 @@
   <form class="form" [formGroup]="employeeAddressForm" (ngSubmit)="onSubmit()" [hidden]="submitted">
     <section class="form-block">
       <label>Registrar Conta</label>
-      <div class="form-group row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="form-group">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding">
           <label class="required" for="empFullName">Nome Completo</label>
           <label for="empFullName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="employeeAddressForm.get('fullName').invalid
                   && (employeeAddressForm.get('fullName').dirty || employeeAddressForm.get('fullName').touched)">
-            <input id="empFullName" type="text" formControlName="fullName" size="50">
+            <input class="label-posicao" id="empFullName" type="text" formControlName="fullName" size="50">
             <span class="tooltip-content">
               Nome é obrigatório!
             </span>
           </label>
         </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding">
+          <label class="required" for="empFullName">Nome Completo</label>
+          <label for="empFullName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="employeeAddressForm.get('fullName').invalid
+                  && (employeeAddressForm.get('fullName').dirty || employeeAddressForm.get('fullName').touched)">
+            <input class="label-posicao"  id="empFullName" type="text" formControlName="fullName" size="50">
+            <span class="tooltip-content">
+              Nome é obrigatório!
+            </span>
+          </label>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding">
+            <label class="required" for="empFullName">Nome Completo</label>
+            <label for="empFullName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="employeeAddressForm.get('fullName').invalid
+                    && (employeeAddressForm.get('fullName').dirty || employeeAddressForm.get('fullName').touched)">
+              <input class="label-posicao"  id="empFullName" type="text" formControlName="fullName" size="50">
+              <span class="tooltip-content">
+                Nome é obrigatório!
+              </span>
+            </label>
+          </div>                
       </div>
       <button class="btn btn-primary" type="submit" [disabled]="employeeAddressForm.invalid">Add</button>
     </section>
