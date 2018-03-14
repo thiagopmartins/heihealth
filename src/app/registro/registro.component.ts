@@ -14,7 +14,8 @@ export class RegistroComponent implements OnInit {
   employeeAddressForm = new FormGroup({
     email: new FormControl('', Validators.required),
     senha: new FormControl('', Validators.required),
-    resenha: new FormControl('', Validators.required)
+    resenha: new FormControl('', Validators.required),
+    email_format: new FormControl('', Validators.email)
   });
   submitted = false;
   onSubmit() {

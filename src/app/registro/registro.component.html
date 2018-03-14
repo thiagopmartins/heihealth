@@ -8,7 +8,7 @@
       <label for="email">Email</label>
       <label for="email" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="employeeAddressForm.get('email').invalid
                     && (employeeAddressForm.get('email').dirty || employeeAddressForm.get('email').touched)">
-        <input id="email" type="email" formControlName="email" size="40" ngModel email="true">
+        <input id="email" type="email" formControlName="email" size="40">
         <span class="tooltip-content">
           Email é obrigatório!
         </span>
