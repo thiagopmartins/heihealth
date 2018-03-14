@@ -1,13 +1,17 @@
-.registro-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;    
-}
 
-.nopadding{
-    padding: 0 !important;
+@media (max-width: 2000px){
+    .form, form {
+        padding-top: 3.5rem !important;
+    }
+    .form .form-group, form .form-group {
+        padding-left: 6.5rem !important;
+    }
 }
-
-.form-group {
-    padding-left: 0 !important; 
+@media (max-width: 780px){
+    .form, form {
+        padding-top: 8.5rem !important;
+    }
+    .form .form-group, form .form-group {
+        padding-left: 0 !important;
+    }    
 }

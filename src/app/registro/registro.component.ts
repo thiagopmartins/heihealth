@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, EmailValidator } from '@angular/forms';
+
 
 @Component({
   selector: 'app-registro',
@@ -11,11 +12,9 @@ export class RegistroComponent implements OnInit {
   constructor() { }
 
   employeeAddressForm = new FormGroup({
-    fullName: new FormControl('', Validators.required),
-    address: new FormGroup({
-      postalCode: new FormControl('', Validators.required),
-      country: new FormControl('', Validators.required)
-    })
+    email: new FormControl('', Validators.required),
+    senha: new FormControl('', Validators.required),
+    resenha: new FormControl('', Validators.required)
   });
   submitted = false;
   onSubmit() {
