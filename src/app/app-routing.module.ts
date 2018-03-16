@@ -1,7 +1,11 @@
-import { RegistroComponent } from './registro/registro.component';
+import { SecretariaComponent } from './dashboard/secretaria/secretaria.component';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+
+import { PacienteComponent } from './dashboard/paciente/paciente.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from "./login/login.component";
+import { RegistroComponent } from './registro/registro.component';
 
 const appRoutes: Routes = [
     {
@@ -16,12 +20,26 @@ const appRoutes: Routes = [
     {
         path: 'registro',
         component: RegistroComponent
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        children: [
+            {
+                path: 'paciente',
+                component: PacienteComponent
+            },
+            {
+                path: 'secretaria',
+                component: SecretariaComponent
+            }
+        ]
     }
 ]
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes,{useHash:true})
+        RouterModule.forRoot(appRoutes, { useHash: true })
     ],
     exports: [
         RouterModule

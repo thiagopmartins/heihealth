@@ -1,0 +1,13 @@
+.header.header-4, header.header-4 {
+    background-color: #007cbb !important;
+}
+.header .branding .title, header .branding .title {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+}
+.main-container {
+    height: 92.2vh !important;
+}
+.clr-vertical-nav {
+    width: 9rem;
+}

@@ -1,0 +1,38 @@
+<header class="header-4">
+  <div class="branding">
+    <a routerLink="/dashboard" class="nav-link">
+      <clr-icon shape="vm-bug"></clr-icon>
+      <span class="title">HeiHealth</span>
+    </a>
+  </div>
+  <div class="header-actions">
+    <clr-dropdown>
+      <button class="nav-text" clrDropdownTrigger>
+        thiagopmartins@outlook.com
+        <clr-icon shape="caret down"></clr-icon>
+      </button>
+      <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+        <a href="..." clrDropdownItem>Minha Conta</a>
+        <a routerLink="/login" clrDropdownItem>Sair</a>
+
+      </clr-dropdown-menu>
+    </clr-dropdown>
+  </div>
+</header>
+<div class="main-container">
+  <div class="content-container">
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+    <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
+      <a clrVerticalNavLink routerLink="./paciente" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="heart"></clr-icon>
+        Pacientes
+      </a>
+      <a clrVerticalNavLink routerLink="./secretaria" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
+        Secretárias
+      </a>
+    </clr-vertical-nav>
+  </div>
+</div>
