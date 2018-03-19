@@ -17,3 +17,4 @@
 .btn-label {
     margin-top: -4.1px !important;
 }
+button:focus { outline:0 !important; }

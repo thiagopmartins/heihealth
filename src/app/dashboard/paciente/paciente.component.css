@@ -1,12 +1,6 @@
-.header, header {
-    height: 1.5rem !important;
+.btn {
+    min-width: 112px;;
 }
-header .header-nav .nav-link.nav-text {
-    line-height: 1.5rem;    
-}
-form {
-    padding-left: 2rem;
-}
-.form .form-group, form .form-group{
-    padding-left: 6rem;    
+form .form-group>label:first-child {
+    width: auto;
 }

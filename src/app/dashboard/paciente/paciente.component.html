@@ -1,17 +1,57 @@
-<header class="header-6">
-  <div class="header-nav">
-    <a routerLink="./paciente" class="active nav-link nav-text">Gestão de Pacientes</a>
-  </div>
-</header>
 <form>
+
+  <section class="form-block">
+    <div class="form-group row">
+      <div class="col-xs-12	col-sm-12	col-md-12	col-lg-5	col-xl-5">
+        <label class="required" for="CPF">CPF do Paciente</label>
+        <input type="text" id="CPF" placeholder="000.000.000-00" size="20">
+        <button type="button" class="btn btn-icon btn-label">
+          <clr-icon shape="search"></clr-icon>
+          PESQUISAR
+        </button>
+      </div>
+      <div class="col-xs-12	col-sm-12	col-md-12	col-lg-7	col-xl-7">
+        <div class="alert alert-info">
+          <div class="alert-items">
+            <div class="alert-item static">
+              <div class="alert-icon-wrapper">
+                <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+              </div>
+              <span class="alert-text">Para habilitar o formulário, insira um CPF e clique em pesquisar.</span>
+            </div>
+          </div>
+          <button type="button" class="close" aria-label="Close">
+            <clr-icon aria-hidden="true" shape="close"></clr-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
   <section class="form-block">
     <div class="form-group">
-      <label for="CPF">CPF do Paciente</label>
-      <input type="text" id="CPF" placeholder="000.000.000-00" size="20">
-      <button type="button" class="btn btn-icon btn-label">
-        <clr-icon shape="search"></clr-icon>
-        PESQUISAR
-      </button>
+      <label for="aForm_1">This is a form field</label>
+      <input type="text" id="aForm_1" placeholder="Enter value here" size="45" disabled>
+    </div>
+    <div class="form-group">
+      <label for="aForm_2">Another form field</label>
+      <input type="password" id="aForm_2" placeholder="Enter another value here" size="35">
+    </div>
+    <div class="form-group">
+      <label for="aForm_3">A select box</label>
+      <div class="select">
+        <select id="aForm_3">
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+          <option>Option 4</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="aForm_4">Textarea</label>
+      <textarea id="aForm_4" rows="5"></textarea>
     </div>
     <button type="button" class="btn btn-icon btn-danger">
       <clr-icon shape="times"></clr-icon>
@@ -22,4 +62,6 @@
       Salvar
     </button>
   </section>
+
+
 </form>

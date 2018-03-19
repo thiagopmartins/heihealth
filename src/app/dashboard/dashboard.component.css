@@ -8,7 +8,7 @@
 
 .clr-vertical-nav {
     width: 9rem;
-    background-color: #ddd;
+    background-color: #F1F1F1;
 }
 .clr-vertical-nav .nav-link.active, .clr-vertical-nav .nav-link:hover {
     font-weight: 600;
@@ -32,4 +32,13 @@
 .main-container .content-container .content-area {
     padding: 0;
     margin: 0.1rem 0.1rem 0.1rem 0.1rem;
+}
+.header-6 {
+    height: 1.5rem !important;
+}
+header .header-nav .nav-link.nav-text {
+    line-height: 1.5rem;    
+}
+form {
+    padding-left: 2rem;
 }

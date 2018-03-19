@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { SecretariaComponent } from './dashboard/secretaria/secretaria.component';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
@@ -32,11 +33,17 @@ const appRoutes: Routes = [
             },
             {
                 path: 'paciente',
-                component: PacienteComponent
+                component: PacienteComponent,
+                data: {
+                    title: 'Gestão de Pacientes'
+                }
             },
             {
                 path: 'secretaria',
-                component: SecretariaComponent
+                component: SecretariaComponent,
+                data: {
+                    title: 'Gestão de Secretarias'
+                }
             }
         ]
     }

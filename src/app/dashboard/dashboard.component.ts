@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  title: String;
 
-  ngOnInit() {
+  constructor(
+    private router: Router,
+    private activiteRouter: ActivatedRoute
+  ) {
+    router.events.forEach((event) => {
+      if (event instanceof NavigationEnd) {
+        this.title = this.activiteRouter.firstChild.data['value'].title
+      }
+    });
   }
+  ngOnInit() {
 
+  }
 }
