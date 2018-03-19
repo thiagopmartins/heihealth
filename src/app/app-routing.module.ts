@@ -26,6 +26,11 @@ const appRoutes: Routes = [
         component: DashboardComponent,
         children: [
             {
+                path: '',
+                redirectTo: '/dashboard/paciente',
+                pathMatch: 'full'
+            },
+            {
                 path: 'paciente',
                 component: PacienteComponent
             },

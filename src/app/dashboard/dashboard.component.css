@@ -5,9 +5,31 @@
     font-size: 0.75rem !important;
     font-weight: 700 !important;
 }
-.main-container {
-    height: 92.2vh !important;
-}
+
 .clr-vertical-nav {
     width: 9rem;
+    background-color: #ddd;
+}
+.clr-vertical-nav .nav-link.active, .clr-vertical-nav .nav-link:hover {
+    font-weight: 600;
+    border-left: 0.2rem solid #007cbb;
+    padding-left: 0.5rem !important;
+}
+.main-container:not([class*=open-overflow-menu]):not([class*=open-hamburger-menu]) .clr-vertical-nav.is-collapsed.has-icons .nav-link {
+    padding-left: 0.7rem;
+}
+.main-container:not([class*=open-overflow-menu]):not([class*=open-hamburger-menu]) .clr-vertical-nav.is-collapsed .nav-icon {
+    margin: 0;
+    /* margin-left: .666667rem; */
+}
+.main-container {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background: #FFF;
+    
+}
+.main-container .content-container .content-area {
+    padding: 0;
+    margin: 0.1rem 0.1rem 0.1rem 0.1rem;
 }
