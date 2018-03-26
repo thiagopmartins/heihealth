@@ -1,0 +1,6 @@
+.form .form-group, form .form-group {
+    padding-left: 5.7rem !important;
+}
+form .form-group>label:first-child {
+    width: auto;
+}

@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SecretariaComponent } from './dashboard/secretaria/secretaria.component';
+import { MinhacontaComponent } from './dashboard/minhaconta/minhaconta.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SecretariaComponent } from './dashboard/secretaria/secretaria.component
     RegistroComponent,
     DashboardComponent,
     PacienteComponent,
-    SecretariaComponent
+    SecretariaComponent,
+    MinhacontaComponent
   ],
   imports: [
     AppRoutingModule,

@@ -3,9 +3,10 @@ import { SecretariaComponent } from './dashboard/secretaria/secretaria.component
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { PacienteComponent } from './dashboard/paciente/paciente.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from "./login/login.component";
+import { MinhacontaComponent } from './dashboard/minhaconta/minhaconta.component';
+import { PacienteComponent } from './dashboard/paciente/paciente.component';
 import { RegistroComponent } from './registro/registro.component';
 
 const appRoutes: Routes = [
@@ -43,6 +44,13 @@ const appRoutes: Routes = [
                 component: SecretariaComponent,
                 data: {
                     title: 'Gestão de Secretarias'
+                }
+            },
+            {
+                path: 'minhaconta',
+                component: MinhacontaComponent,
+                data: {
+                    title: 'Minha Conta'
                 }
             }
         ]

@@ -42,3 +42,6 @@ header .header-nav .nav-link.nav-text {
 form {
     padding-left: 2rem;
 }
+.form .form-group, form .form-group {
+    padding-left: 5.7rem !important;
+}
