@@ -28,9 +28,9 @@
         </div>
       </header>
       <div class="row flex-items-xs-center">
-        <div class="col-xs-12	col-sm-12	col-md-12	col-lg-10	col-xl-10">
+        <div class="col-xs-11	col-sm-11	col-md-11	col-lg-10	col-xl-9">
           <router-outlet></router-outlet>
-        </div>  
+        </div>
       </div>
     </div>
     <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
@@ -42,6 +42,10 @@
         <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
         Secretárias
       </a>
+      <a clrVerticalNavLink routerLink="./diagnostico" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="helix"></clr-icon>
+        Diagnósticos
+      </a>      
     </clr-vertical-nav>
   </div>
 </div>

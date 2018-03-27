@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
- 
+  validateLoading: boolean = false;
+  submitLoading: boolean = false;
 
   constructor(
     private route: Router
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   }
 
   logar(): void {
+    this.submitLoading = true;
     this.route.navigate(['/dashboard']);
-  }
- 
+    this.submitLoading = false;
+  } 
 }

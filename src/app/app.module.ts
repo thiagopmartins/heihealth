@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { DiagnosticoComponent } from './dashboard/diagnostico/diagnostico.component';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -22,7 +23,8 @@ import { MinhacontaComponent } from './dashboard/minhaconta/minhaconta.component
     DashboardComponent,
     PacienteComponent,
     SecretariaComponent,
-    MinhacontaComponent
+    MinhacontaComponent,
+    DiagnosticoComponent
   ],
   imports: [
     AppRoutingModule,

@@ -4,7 +4,7 @@
     <div class="form-group row">
       <div class="col-xs-12	col-sm-12	col-md-12	col-lg-10	col-xl-10">
         <label class="required" for="CPF">CPF do Paciente</label>
-        <input type="text" id="CPF" placeholder="000.000.000-00" size="20">
+        <input type="text" id="CPF" class="search" placeholder="000.000.000-00" size="20">
         <button type="button" class="btn btn-icon btn-label">
           <clr-icon shape="search"></clr-icon>
           PESQUISAR
@@ -16,12 +16,12 @@
 
   <section class="form-block">
     <div class="form-group">
-      <label for="aForm_1">This is a form field</label>
-      <input type="text" id="aForm_1" placeholder="Enter value here" size="45" disabled>
+      <label for="aForm_1">Nome do Paciente</label>
+      <input type="text" id="paciente_nome" placeholder="Enter value here" size="45">
     </div>
     <div class="form-group">
-      <label for="aForm_2">Another form field</label>
-      <input type="password" id="aForm_2" placeholder="Enter another value here" size="35">
+      <label for="aForm_2">RG</label>
+      <input type="text" id="aForm_2" placeholder="Enter another value here" size="35">
     </div>
     <div class="form-group">
       <label for="aForm_3">A select box</label>
@@ -38,14 +38,17 @@
       <label for="aForm_4">Textarea</label>
       <textarea id="aForm_4" rows="5"></textarea>
     </div>
-    <button type="button" class="btn btn-icon btn-danger">
-      <clr-icon shape="times"></clr-icon>
-      Deletar
-    </button>
-    <button type="button" class="btn btn-icon btn-primary">
-      <clr-icon shape="floppy"></clr-icon>
-      Salvar
-    </button>
+    <div>
+      <button type="button" class="btn btn-icon btn-danger">
+        <clr-icon shape="times"></clr-icon>
+        Deletar
+      </button>
+      <button type="button" class="btn btn-icon btn-primary">
+        <clr-icon shape="floppy"></clr-icon>
+        Salvar
+      </button>      
+    </div>
+
   </section>
 
 

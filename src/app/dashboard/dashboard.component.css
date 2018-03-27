@@ -1,5 +1,5 @@
 .header.header-4, header.header-4 {
-    background-color: #007cbb !important;
+    background-color: #58b8e8 !important;
 }
 .header .branding .title, header .branding .title {
     font-size: 0.75rem !important;
@@ -10,10 +10,14 @@
     width: 9rem;
     background-color: #F1F1F1;
 }
+.is-collapsed .nav-link.active, .is-collapsed .nav-link:hover {
+    padding-left: 0.5rem !important;
+}
 .clr-vertical-nav .nav-link.active, .clr-vertical-nav .nav-link:hover {
     font-weight: 600;
-    border-left: 0.2rem solid #007cbb;
-    padding-left: 0.5rem !important;
+    border-left: 0.2rem solid #58b8e8;
+    padding-left: 0.8rem;
+    color: #58b8e8;
 }
 .main-container:not([class*=open-overflow-menu]):not([class*=open-hamburger-menu]) .clr-vertical-nav.is-collapsed.has-icons .nav-link {
     padding-left: 0.7rem;
@@ -27,21 +31,18 @@
     height: 100vh;
     width: 100%;
     background: #FFF;
-    
 }
 .main-container .content-container .content-area {
     padding: 0;
-    margin: 0.1rem 0.1rem 0.1rem 0.1rem;
+    margin: 0rem 0.1rem 0.1rem 0.1rem;
 }
 .header-6 {
-    height: 1.5rem !important;
+    height: 1.55rem !important;
+    border-bottom: 1px solid #ccc !important;    
+    background-color: #f1f1f1;
+    color: #000 !important;
 }
-header .header-nav .nav-link.nav-text {
-    line-height: 1.5rem;    
-}
-form {
-    padding-left: 2rem;
-}
-.form .form-group, form .form-group {
-    padding-left: 5.7rem !important;
-}
+header .header-nav .nav-link.nav-text { line-height: 1.5rem; }
+form { padding-left: 2rem; }
+.form .form-group, form .form-group { padding-left: 5.7rem !important; }
+.header .header-nav .nav-link, header .header-nav .nav-link{ color: #000 !important; }

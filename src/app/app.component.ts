@@ -8,8 +8,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app works!';
   loading = false;
+
   ngOnInit(): void{
     this.loading = true;
-    console.log(this.loading);
+  }
+  ngDestroy(): void{
+    this.loading = false;
   }
 }

@@ -55,3 +55,13 @@ body, h6 {
     text-indent: 100%;
     overflow: hidden;
 }
+.btn-primary:not(:disabled) {
+    border-color: #58b8e8 !important;
+    background-color: #58b8e8 !important;
+    color: #fff;
+}
+.btn-label {
+    border-color: #58b8e8 !important;
+    color: #58b8e8 !important;
+}
+.search { margin: 0 0.15rem 0 0.7rem !important; }

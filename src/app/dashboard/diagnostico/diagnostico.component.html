@@ -1,0 +1,33 @@
+<form>
+
+  <section class="form-block">
+    <div class="form-group row">
+      <div class="col-xs-12	col-sm-12	col-md-12	col-lg-10	col-xl-10">
+        <label class="required" for="CPF">CPF do Paciente</label>
+        <input type="text" id="CPF" placeholder="000.000.000-00" size="20">
+        <button type="button" class="btn btn-icon btn-label">
+          <clr-icon shape="search"></clr-icon>
+          PESQUISAR
+        </button>
+      </div>
+    </div>
+
+  </section>
+</form>
+<clr-datagrid>
+  <clr-dg-column [clrDgField]="'paciente'">Paciente</clr-dg-column>
+  <clr-dg-column>Médico Responsável</clr-dg-column>
+  <clr-dg-column>Diagnóstico</clr-dg-column>
+  <clr-dg-column>Data do diagonóstico</clr-dg-column>
+  <clr-dg-row *ngFor="let user of users">
+    <clr-dg-cell>{{ user.paciente }}</clr-dg-cell>
+    <clr-dg-cell>{{ user.medico }}</clr-dg-cell>
+    <clr-dg-cell>{{ user.diagnostico }}</clr-dg-cell>
+    <clr-dg-cell>{{ user.data }}</clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} de {{ users.length }} diagnosticos
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

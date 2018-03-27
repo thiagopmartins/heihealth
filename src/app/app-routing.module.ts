@@ -1,3 +1,4 @@
+import { DiagnosticoComponent } from './dashboard/diagnostico/diagnostico.component';
 import { Title } from '@angular/platform-browser';
 import { SecretariaComponent } from './dashboard/secretaria/secretaria.component';
 import { NgModule } from "@angular/core";
@@ -51,6 +52,13 @@ const appRoutes: Routes = [
                 component: MinhacontaComponent,
                 data: {
                     title: 'Minha Conta'
+                }
+            },
+            {
+                path: 'diagnostico',
+                component: DiagnosticoComponent,
+                data: {
+                    title: 'Diagnósticos'
                 }
             }
         ]
