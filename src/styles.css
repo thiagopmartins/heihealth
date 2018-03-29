@@ -63,5 +63,10 @@ body, h6 {
 .btn-label {
     border-color: #58b8e8 !important;
     color: #58b8e8 !important;
+    transition: .2s;    
+}
+.btn-label:hover{
+    background-color: #58b8e8 !important;
+    color: #FFF !important;
 }
 .search { margin: 0 0.15rem 0 0.7rem !important; }
