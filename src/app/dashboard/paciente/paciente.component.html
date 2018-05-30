@@ -1,55 +1,94 @@
-<form>
-
-  <section class="form-block">
-    <div class="form-group row">
-      <div class="col-xs-12	col-sm-12	col-md-12	col-lg-10	col-xl-10">
-        <label class="required" for="CPF">CPF do Paciente</label>
-        <input type="text" id="CPF" class="search" placeholder="000.000.000-00" size="20">
-        <button type="button" class="btn btn-icon btn-label">
-          <clr-icon shape="search"></clr-icon>
-          PESQUISAR
-        </button>
-      </div>
+<clr-datagrid [(clrDgSingleSelected)]="pacienteSelecionado" [clDgRowSelection]="true">
+  <clr-dg-action-bar>
+    <div class="btn-group">
+      <button type="button" class="btn btn-sm btn-success-outline" (click)="onCreate()">
+        <clr-icon shape="plus"></clr-icon> Adicionar</button>
+      <button type="button" class="btn btn-sm btn-danger-outline" (click)="onDelete()" [disabled]="!pacienteSelecionado">
+        <clr-icon shape="close"></clr-icon> Deletar</button>
+      <button type="button" class="btn btn-sm btn-secondary" (click)="onEdit()" [disabled]="!pacienteSelecionado">
+        <clr-icon shape="pencil"></clr-icon> Editar</button>
+      <button type="button" class="btn btn-sm btn-secondary" (click)="onEdit()" [disabled]="!pacienteSelecionado">
+        <clr-icon shape="pencil"></clr-icon> Editar</button>
     </div>
+  </clr-dg-action-bar>
+  <clr-dg-placeholder>Pesquise um paciente</clr-dg-placeholder>
+  <clr-dg-column>Nome</clr-dg-column>
+  <clr-dg-column>CPF</clr-dg-column>
+  <clr-dg-column>Telefone</clr-dg-column>
+  <clr-dg-row *clrDgItems="let paciente of pacientes" [clrDgItem]="paciente">
+    <clr-dg-cell>{{paciente.nome}}</clr-dg-cell>
+    <clr-dg-cell>{{paciente.cpf}}</clr-dg-cell>
+    <clr-dg-cell>{{paciente.telefone}}</clr-dg-cell>
+  </clr-dg-row>
+</clr-datagrid>
 
-  </section>
+<clr-modal [(clrModalOpen)]="basic" [clrModalSize]="'lg'">
+  <h3 class="modal-title">Adicinar um Paciente</h3>
+  <div class="modal-body">
+    <form>
+      <section class="form-block" id="cadastro-paciente">
+        <div class="form-group">
+          <label for="paciente_nome">Nome do Paciente:</label>
+          <input type="text" id="paciente_nome" placeholder="João Oliveira" size="47" maxlength="45">
+        </div>
+        <div class="form-group">
+          <label for="paciente_cpf">CPF:</label>
+          <input type="text" id="paciente_cpf" placeholder="111.222.333-04" size="15" maxlength="14">
+          <label for="paciente_nascimento">Nascimento:</label>
+          <input type="date" id="paciente_telefone" clrDate size="14">
+        </div>
+        <div class="form-group">
+          <label>Sexo: </label>
+          <div class="radio-inline">
+            <input id="masculino" name="optSexo" type="radio">
+            <label for="masculino">
+              Masculino
+            </label>
+          </div>
+          <div class="radio-inline">
+            <input id="feminino" name="optSexo" type="radio">
+            <label for="feminino">
+              Feminino
+            </label>
+          </div>
+          <div class="radio-inline">
+            <input id="outros" name="optSexo" type="radio">
+            <label for="outros">
+              Outros
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="paciente_telefone">Telefone:</label>
+          <input type="text" id="paciente_telefone" placeholder="(49)99999-9999" size="15" maxlength="14">
+        </div>
+        <div class="form-group">
+          <label for="paciente_endereco">Endereço:</label>
+          <input type="text" id="paciente_endereco" placeholder="Rua Julio Rodrigues da Costa" size="47" maxlength="40">
+        </div>
+        <div class="form-group">
+          <label for="paciente_cep">CEP:</label>
+          <input type="text" id="paciente_cep" placeholder="88503-685" size="11" maxlength="9">
+          <label for="paciente_num" style="margin-left: 3.75rem">Número:</label>
+          <input type="text" id="paciente_num" placeholder="458" size="9" maxlength="8">
+        </div>
+        <div class="form-group">
+          <label for="paciente_bairro">Bairro:</label>
+          <input type="text" id="paciente_bairro" placeholder="Brusque" size="47" maxlength="40">
+        </div>
+        <div class="form-group">
+          <label for="paciente_cidade">Cidade:</label>
+          <input type="text" id="paciente_cidade" placeholder="Lages" size="22" maxlength="20">
+          <label for="paciente_uf" style="margin-left: 3rem">UF:</label>
+          <input type="text" id="paciente_uf" placeholder="SC" size="2" maxlength="2">
+        </div>
+      </section>
 
-  <section class="form-block">
-    <div class="form-group">
-      <label for="aForm_1">Nome do Paciente</label>
-      <input type="text" id="paciente_nome" placeholder="Enter value here" size="45">
-    </div>
-    <div class="form-group">
-      <label for="aForm_2">RG</label>
-      <input type="text" id="aForm_2" placeholder="Enter another value here" size="35">
-    </div>
-    <div class="form-group">
-      <label for="aForm_3">A select box</label>
-      <div class="select">
-        <select id="aForm_3">
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
-          <option>Option 4</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="aForm_4">Textarea</label>
-      <textarea id="aForm_4" rows="5"></textarea>
-    </div>
-    <div>
-      <button type="button" class="btn btn-icon btn-danger">
-        <clr-icon shape="times"></clr-icon>
-        Deletar
-      </button>
-      <button type="button" class="btn btn-icon btn-primary">
-        <clr-icon shape="floppy"></clr-icon>
-        Salvar
-      </button>      
-    </div>
 
-  </section>
-
-
-</form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger-outline" (click)="basic = false">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="onSave()">Salvar</button>
+  </div>
+</clr-modal>

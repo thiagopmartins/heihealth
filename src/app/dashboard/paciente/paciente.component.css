@@ -4,3 +4,6 @@
 form .form-group>label:first-child {
     width: auto;
 }
+.form-group > label { font-weight: 800; }
+#cadastro-paciente{ padding-left: 4rem; }
+.datepicker { transform: translateX(438.922px) translateY(36px) !important; }

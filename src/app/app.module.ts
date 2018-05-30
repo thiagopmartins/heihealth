@@ -14,6 +14,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SecretariaComponent } from './dashboard/secretaria/secretaria.component';
 import { MinhacontaComponent } from './dashboard/minhaconta/minhaconta.component';
+import { DialogService } from './dialog.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MinhacontaComponent } from './dashboard/minhaconta/minhaconta.component
     HttpModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DialogService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
