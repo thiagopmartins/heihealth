@@ -5,5 +5,7 @@ form .form-group>label:first-child {
     width: auto;
 }
 .form-group > label { font-weight: 800; }
+.datepicker { background-color: #000000; transform: translateX(438.922px) translateY(36px) !important; }
+
+
 #cadastro-paciente{ padding-left: 4rem; }
-.datepicker { transform: translateX(438.922px) translateY(36px) !important; }

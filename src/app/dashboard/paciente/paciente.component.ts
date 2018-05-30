@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { PacienteModel } from './PacienteModel';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogService } from '../../dialog.service';
 
 @Component({
@@ -28,8 +28,8 @@ export class PacienteComponent implements OnInit {
     this.form = this.fb.group({
       id: [],
       nome: [''],
-      sexo: [''],
-      cpf: [''],
+      sexo: [],
+      cpf: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9]/)])],
       telefone: [''],
       nascimento: [''],
       endereco: [''],
@@ -39,7 +39,9 @@ export class PacienteComponent implements OnInit {
       cidade: [''],
       uf: ['']
     });
+    console.log(this.form);
   }
+
   onCreate(): void {
     this.basic = true;
     this.editando = false;
@@ -72,6 +74,7 @@ export class PacienteComponent implements OnInit {
       cpf: this.form.controls['cpf'].value,
       telefone: this.form.controls['telefone'].value
     }
+    console.log(this.form);
     this.pacienteSelecionado = null;
   }
   onDelete(): void {

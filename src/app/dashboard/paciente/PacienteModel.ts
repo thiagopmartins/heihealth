@@ -2,7 +2,7 @@ export interface PacienteModel {
     id?: number;
     nome?: string;
     cpf?: string;
-    sexo?: string;
+    sexo?: number;
     telefone?: string;
     nascimento?: string;
     endereco?: string;

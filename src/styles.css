@@ -73,3 +73,5 @@ body, h6 {
     color: #FFF !important;
 }
 .search { margin: 0 0.15rem 0 0.7rem !important; }
+
+.form .form-group, form .form-group { padding-left: 8rem !important; }
