@@ -9,7 +9,7 @@
         <clr-icon shape="pencil"></clr-icon> Editar</button>
     </div>
   </clr-dg-action-bar>
-  <clr-dg-placeholder>Pesquise um paciente</clr-dg-placeholder>
+  <clr-dg-placeholder>Não há pacientes cadastrados!</clr-dg-placeholder>
   <clr-dg-column>Nome</clr-dg-column>
   <clr-dg-column>CPF</clr-dg-column>
   <clr-dg-column>Telefone</clr-dg-column>
@@ -26,33 +26,49 @@
     <form [formGroup]="form">
       <section class="form-block" id="cadastro-paciente">
         <div class="form-group">
-          <label for="nome">Nome do Paciente:</label>
-          <input type="text" id="nome" formControlName="nome" placeholder="João Oliveira" size="47" maxlength="45">
+          <label for="nome" class="required">Nome do Paciente:</label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="form.get('nome').invalid && (form.get('nome').dirty || form.get('nome').touched)">
+            <input type="text" id="nome" formControlName="nome" placeholder="João Oliveira" size="47" maxlength="45" autocomplete="off">
+            <span class="tooltip-content tooltip-bottom">
+              {{erro.nome}}
+            </span>
+          </label>          
         </div>
         <div class="form-group">
-          <label for="cpf">CPF:</label>
-          <input type="text" id="cpf" type="text" formControlName="cpf" placeholder="111.222.333-04" size="15" maxlength="14">
-          <label for="nascimento">Nascimento:</label>
+          <label for="cpf" class="required titulo">CPF:</label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="form.get('cpf').invalid && (form.get('cpf').dirty || form.get('cpf').touched)">
+            <input type="text" id="cpf" type="text" formControlName="cpf" placeholder="111.222.333-04" size="15" maxlength="14" [value]="form.get('cpf').value | cpf" autocomplete="off">
+            <span class="tooltip-content">
+              {{erro.cpf}}
+            </span>
+          </label>
+
+          <label for="nascimento" class="required">Nascimento:</label>
           <input type="date" formControlName="nascimento" type="date" id="nascimento" clrDate size="14">
         </div>
         <div class="form-group">
           <label>Sexo: </label>
           <div class="radio-inline">
-            <input id="masculino" name="optSexo" type="radio">
+            <input id="masculino" value="masculino" name="sexo" type="radio" formControlName="sexo">
             <label for="masculino">
               Masculino
             </label>
           </div>
           <div class="radio-inline">
-            <input id="feminino" name="optSexo" type="radio">
+            <input id="feminino" value="feminino" name="sexo" type="radio" formControlName="sexo">
             <label for="feminino">
               Feminino
             </label>
           </div>
         </div>
         <div class="form-group">
-          <label for="telefone">Telefone:</label>
-          <input type="text" id="telefone" formControlName="telefone" placeholder="(49)99999-9999" size="15" maxlength="14">
+          <label for="telefone" class="required">Telefone:</label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="form.get('telefone').invalid && (form.get('telefone').dirty || form.get('telefone').touched)">
+            <input type="text" id="telefone" formControlName="telefone" placeholder="(49)99999-9999" size="15" maxlength="14" [value]="form.get('telefone').value | telefone" autocomplete="off">
+            <span class="tooltip-content">
+              {{erro.telefone}}
+            </span>
+          </label>          
         </div>
         <div class="form-group">
           <label for="endereco">Endereço:</label>
@@ -60,7 +76,7 @@
         </div>
         <div class="form-group">
           <label for="cep">CEP:</label>
-          <input type="text" id="cep" formControlName="cep" placeholder="88503-685" size="11" maxlength="9">
+          <input type="text" id="cep" formControlName="cep" placeholder="88503-685" size="11" maxlength="9" [value]="form.get('cep').value | cep">
           <label for="numero" style="margin-left: 3.75rem">Número:</label>
           <input type="text" id="numero" formControlName="numero" placeholder="458" size="9" maxlength="8">
         </div>

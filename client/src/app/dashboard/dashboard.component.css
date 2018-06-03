@@ -45,5 +45,6 @@
 header .header-nav .nav-link.nav-text { line-height: 1.5rem; }
 form { padding-left: 2rem; }
 .header .header-nav .nav-link, header .header-nav .nav-link{ color: #000 !important; }
+.titulo { font-weight: 800; }
 
 #painel{ padding-top: 1rem; }

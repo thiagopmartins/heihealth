@@ -74,4 +74,17 @@ body, h6 {
 }
 .search { margin: 0 0.15rem 0 0.7rem !important; }
 
-.form .form-group, form .form-group { padding-left: 8rem !important; }
+.form .form-group, form .form-group{ padding-left: 8rem !important; }
+
+.tooltip-bottom{
+    margin-bottom: -3.73333rem !important;
+}
+.tooltip-bottom{ 
+    margin-bottom: -3.73333rem !important;
+    border-bottom-left-radius: .125rem !important;
+    border-top-left-radius: 0 !important;
+}
+.tooltip-bottom:before{     
+    transform: scaleY(-1) !important;
+    bottom: 2.225rem !important;
+}

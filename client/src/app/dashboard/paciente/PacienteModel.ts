@@ -2,12 +2,12 @@ export interface PacienteModel {
     id?: number;
     nome?: string;
     cpf?: string;
-    sexo?: number;
+    sexo?: string;
     telefone?: string;
     nascimento?: string;
     endereco?: string;
-    cep?: number;
-    numero?: string;
+    cep?: string;
+    numero?: number;
     bairro?: string;
     cidade?: string;
     uf?: string;

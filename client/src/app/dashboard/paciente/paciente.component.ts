@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { PacienteModel } from './PacienteModel';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogService } from '../../dialog.service';
@@ -16,6 +16,7 @@ export class PacienteComponent implements OnInit {
   pacienteSelecionado: PacienteModel;
 
   form: FormGroup;
+  erro: string[] = [];
   basic: boolean;
   editando: boolean = false;
 
@@ -27,38 +28,48 @@ export class PacienteComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       id: [],
-      nome: [''],
-      sexo: [],
-      cpf: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9]/)])],
-      telefone: [''],
+      nome: ['', Validators.required],
+      cpf: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/)])],
+      telefone: ['', Validators.required],
       nascimento: [''],
       endereco: [''],
-      cep: [],
+      cep: [''],
       bairro: [''],
       numero: [],
       cidade: [''],
-      uf: ['']
+      uf: [''],
+      sexo: ['']
     });
-    console.log(this.form);
+    this.monitorar();
   }
-
+  monitorar(): void {
+    this.form.get('cpf').valueChanges.subscribe(() => {
+      if(this.form.get('cpf').invalid)
+        (this.form.get('cpf').errors.required ? this.erro['cpf'] = "CPF obrigatório" : this.erro['cpf'] = "CPF inválido");
+    });
+    this.form.get('nome').valueChanges.subscribe(() => {
+      if(this.form.get('nome').invalid)
+        (this.form.get('nome').errors.required ? this.erro['nome'] = "Nome obrigatório" : this.erro['nome'] = "Nome inválido");
+    });   
+    this.form.get('telefone').valueChanges.subscribe(() => {
+      if(this.form.get('telefone').invalid)
+        (this.form.get('telefone').errors.required ? this.erro['telefone'] = "Telefone obrigatório" : this.erro['telefone'] = "Telefone inválido");
+    });      
+    console.log(this.erro);
+  }
   onCreate(): void {
     this.basic = true;
     this.editando = false;
     if (this.pacienteSelecionado) {
       this.pacienteSelecionado = null;
     }
-    this.form.controls['nome'].setValue('');
-    this.form.controls['cpf'].setValue('');
-    this.form.controls['telefone'].setValue('');
-
+    this.form.reset();
   }
   onEdit(): void {
+    this.form.reset();
     this.editando = true;
     this.basic = true;
-    this.form.controls['nome'].setValue(this.pacienteSelecionado.nome);
-    this.form.controls['cpf'].setValue(this.pacienteSelecionado.cpf);
-    this.form.controls['telefone'].setValue(this.pacienteSelecionado.telefone);
+    this.form.patchValue(this.pacienteSelecionado);
   }
   onSave(): void {
     this.basic = false;
@@ -68,13 +79,8 @@ export class PacienteComponent implements OnInit {
     else
       (this.pacientes.length == undefined ? pacienteId = 0 : pacienteId = this.pacientes.length);
 
-    this.pacientes[`${pacienteId}`] = {
-      id: (pacienteId + 1),
-      nome: this.form.controls['nome'].value,
-      cpf: this.form.controls['cpf'].value,
-      telefone: this.form.controls['telefone'].value
-    }
-    console.log(this.form);
+    this.pacientes[`${pacienteId}`] = this.form.value;
+    console.log(this.pacientes);
     this.pacienteSelecionado = null;
   }
   onDelete(): void {
