@@ -1,3 +1,4 @@
+import { GraphQLModule } from './graphql.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApolloModule } from 'apollo-angular'
@@ -10,7 +11,6 @@ import { HttpModule } from '@angular/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { Ng2BRPipesModule } from 'ng2-brpipes';
 import { registerLocaleData } from '@angular/common';
-import { provideClient } from './graphql.module';
 import localePt from '@angular/common/locales/pt';
 
 import { DiagnosticoComponent } from './dashboard/diagnostico/diagnostico.component';
@@ -37,11 +37,11 @@ registerLocaleData(localePt, 'pt-BR');
   ],
   imports: [
     AppRoutingModule,
-    ApolloModule.forRoot(provideClient),
     BrowserModule,
     BrowserAnimationsModule,
     ClarityModule,
     FormsModule,
+    GraphQLModule,
     HttpModule,
     Ng2BRPipesModule,
     ReactiveFormsModule

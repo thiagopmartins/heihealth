@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import gql from 'graphql-tag';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,9 @@ export class LoginComponent implements OnInit {
             email: this.login.get('email').value,
             password: this.login.get('password').value
           },
+          context: {
+            headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
+          }
         })
         .toPromise()
         .then((token) => {
