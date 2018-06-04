@@ -1,42 +1,51 @@
 <div class="flex-items-xs-center">
   <img class="logo" src="../assets/logo.png">
 </div>
-<form class="form centralizado" [formGroup]="employeeAddressForm" (ngSubmit)="onSubmit()" [hidden]="submitted">
+<form class="form centralizado" [formGroup]="registro" (ngSubmit)="onSubmit()" [hidden]="submitted">
   <section class="form-block">
     <label>Registro de conta</label>
     <div class="form-group">
-      <label for="email">Email</label>
-      <label for="email" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="employeeAddressForm.get('email').invalid
-                    && (employeeAddressForm.get('email').dirty || employeeAddressForm.get('email').touched)">
-        <input id="email" type="email" formControlName="email" size="40">
+      <label for="text">Nome:</label>
+      <label for="text" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="registro.get('name').invalid
+                    && (registro.get('name').dirty || registro.get('name').touched)">
+        <input id="name" type="text" formControlName="name" size="40" autocomplete="off">
+        <span class="tooltip-content">
+          Nome é obrigatório!
+        </span>
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <label for="email" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="registro.get('email').invalid
+                    && (registro.get('email').dirty || registro.get('email').touched)">
+        <input id="email" type="email" formControlName="email" size="40" autocomplete="off">
         <span class="tooltip-content">
           Email é obrigatório!
         </span>
       </label>
     </div>
     <div class="form-group">
-      <label for="senha">Senha</label>
-      <label for="senha" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="employeeAddressForm.get('senha').invalid
-                        && (employeeAddressForm.get('senha').dirty ||
-                        employeeAddressForm.get('senha').touched)">
-        <input id="senha" type="password" formControlName="senha" size="40">
+      <label for="text">CRM:</label>
+      <label for="text" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="registro.get('crm').invalid
+                      && (registro.get('crm').dirty || registro.get('crm').touched)">
+        <input id="crm" type="text" formControlName="crm" size="40" autocomplete="off">
+        <span class="tooltip-content">
+          CRM é obrigatório!
+        </span>
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="password">Senha:</label>
+      <label for="password" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="registro.get('password').invalid
+                          && (registro.get('password').dirty ||
+                          registro.get('password').touched)">
+        <input id="password" type="password" formControlName="password" size="40" autocomplete="off">
         <span class="tooltip-content">
           Senha é obrigatória.
         </span>
       </label>
     </div>
-    <div class="form-group">
-        <label for="resenha">Redigite a senha</label>
-        <label for="resenha" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="employeeAddressForm.get('resenha').invalid
-                          && (employeeAddressForm.get('resenha').dirty ||
-                          employeeAddressForm.get('resenha').touched)">
-          <input id="resenha" type="password" formControlName="resenha" size="40">
-          <span class="tooltip-content">
-            Senha é obrigatória.
-          </span>
-        </label>
-      </div>    
-    <button class="btn btn-primary flex-items-xs-center" type="submit" [disabled]="employeeAddressForm.invalid">REGISTRAR</button>
+    <button class="btn btn-info-outline flex-items-xs-center" type="submit" [disabled]="registro.invalid" [clrLoading]="submitLoading">REGISTRAR</button>
     <a routerLink="/login" class="signup">Já possui uma conta?</a>
   </section>
 </form>

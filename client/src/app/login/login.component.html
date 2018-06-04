@@ -3,16 +3,16 @@
 </div>
 <div class="login-wrapper flex-items-xs-center">
 
-    <form class="login">
+    <form class="login" [formGroup]="login" (ngSubmit)="onSubmit()">
 
         <div class="login-group">
             <h3 class="login-title">Login</h3>
-            <input class="username" type="email" id="login_username" placeholder="Email">
-            <input class="password" type="password" id="login_password" placeholder="Password">
+            <input class="username" type="email" id="login_username" placeholder="Email" formControlName="email" autocomplete="off">
+            <input class="password" type="password" id="login_password" placeholder="Password" formControlName="password">
             <!-- <div class="error active">
                 Invalid user name or password
             </div> -->     
-            <button [clrLoading]="submitLoading" type="submit" class="btn btn-primary" (click)="logar()">ENTRAR</button>
+            <button [clrLoading]="submitLoading" type="submit" class="btn btn-info-outline">ENTRAR</button>
             <a routerLink="/registro" class="signup">Criar uma conta!</a>
         </div>
     </form>

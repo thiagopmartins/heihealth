@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl, EmailValidator } from '@angular/forms';
+import { FormGroup, Validators, FormControl, EmailValidator, FormBuilder } from '@angular/forms';
+import { UsuarioModel } from '../models/UsuarioModel';
+import { Router } from '@angular/router'
+import { Apollo } from 'apollo-angular'
+
+import gql from 'graphql-tag'
 
 
 @Component({
@@ -9,22 +14,55 @@ import { FormGroup, Validators, FormControl, EmailValidator } from '@angular/for
 })
 export class RegistroComponent implements OnInit {
 
-  constructor() { }
+  registro: FormGroup;
+  erro: string[] = [];
+  basic: boolean;
+  editando: boolean = false;
+  submitLoading: boolean = false;
 
-  employeeAddressForm = new FormGroup({
-    email: new FormControl('', Validators.required),
-    senha: new FormControl('', Validators.required),
-    resenha: new FormControl('', Validators.required)
-  });
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private apollo: Apollo
+  ) { }
   submitted = false;
   onSubmit() {
-  }
-  addNewEmployeeAddress() {
-    this.employeeAddressForm.reset();
-    this.submitted = false;
+    if (!this.submitLoading){
+      this.submitLoading = true;
+      this.apollo
+        .mutate({
+          mutation: gql`
+            mutation createUser($input: UserCreateInput!) {
+              createUser(input: $input) {
+                id
+              }
+            }
+          `,
+          variables: {
+            input: this.registro.value
+          },
+        })
+        .toPromise()
+        .then((id) => {
+          this.router.navigate(['/']);
+          this.submitLoading = false;
+          console.log(id);
+        })
+        .catch((error) => {
+          this.submitLoading = false;
+          console.log(error);
+        });
+    }
   }
 
   ngOnInit() {
+    this.registro = this.fb.group({
+      name: [null, Validators.required],
+      email: [null, Validators.required],
+      crm: [null, Validators.required],
+      password: [null, Validators.required]
+    });
+    this.registro.reset();
   }
 
 }

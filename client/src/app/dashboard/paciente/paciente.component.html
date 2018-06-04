@@ -10,14 +10,19 @@
     </div>
   </clr-dg-action-bar>
   <clr-dg-placeholder>Não há pacientes cadastrados!</clr-dg-placeholder>
-  <clr-dg-column>Nome</clr-dg-column>
-  <clr-dg-column>CPF</clr-dg-column>
+  <clr-dg-column [clrDgField]="'nome'">Nome</clr-dg-column>
+  <clr-dg-column [clrDgField]="'cpf'">CPF</clr-dg-column>
   <clr-dg-column>Telefone</clr-dg-column>
   <clr-dg-row *clrDgItems="let paciente of pacientes" [clrDgItem]="paciente">
     <clr-dg-cell>{{paciente.nome}}</clr-dg-cell>
     <clr-dg-cell>{{paciente.cpf | cpf}}</clr-dg-cell>
     <clr-dg-cell>{{paciente.telefone | telefone}}</clr-dg-cell>
   </clr-dg-row>
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} de {{pagination.totalItems}} Pacientes
+    </clr-dg-pagination>
+  </clr-dg-footer>
 </clr-datagrid>
 
 <clr-modal [(clrModalOpen)]="basic" [clrModalSize]="'lg'">
@@ -32,19 +37,20 @@
             <span class="tooltip-content tooltip-bottom">
               {{erro.nome}}
             </span>
-          </label>          
+          </label>
         </div>
         <div class="form-group">
           <label for="cpf" class="required titulo">CPF:</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="form.get('cpf').invalid && (form.get('cpf').dirty || form.get('cpf').touched)">
-            <input type="text" id="cpf" type="text" formControlName="cpf" placeholder="111.222.333-04" size="15" maxlength="14" [value]="form.get('cpf').value | cpf" autocomplete="off">
+            <input type="text" id="cpf" type="text" formControlName="cpf" placeholder="111.222.333-04" size="15" maxlength="14" [value]="form.get('cpf').value | cpf"
+              autocomplete="off">
             <span class="tooltip-content">
               {{erro.cpf}}
             </span>
           </label>
 
           <label for="nascimento" class="required">Nascimento:</label>
-          <input type="date" formControlName="nascimento" type="date" id="nascimento" clrDate size="14">
+          <input type="date" formControlName="nascimento" id="nascimento" clrDate size="14" autocomplete="off">
         </div>
         <div class="form-group">
           <label>Sexo: </label>
@@ -64,11 +70,12 @@
         <div class="form-group">
           <label for="telefone" class="required">Telefone:</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm" [class.invalid]="form.get('telefone').invalid && (form.get('telefone').dirty || form.get('telefone').touched)">
-            <input type="text" id="telefone" formControlName="telefone" placeholder="(49)99999-9999" size="15" maxlength="14" [value]="form.get('telefone').value | telefone" autocomplete="off">
+            <input type="text" id="telefone" formControlName="telefone" placeholder="(49)99999-9999" size="15" maxlength="14" [value]="form.get('telefone').value | telefone"
+              autocomplete="off">
             <span class="tooltip-content">
               {{erro.telefone}}
             </span>
-          </label>          
+          </label>
         </div>
         <div class="form-group">
           <label for="endereco">Endereço:</label>

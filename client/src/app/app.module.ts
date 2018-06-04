@@ -1,16 +1,18 @@
 import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ApolloModule } from 'apollo-angular'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { ClarityModule } from "@clr/angular";
+import { CookieService } from 'ngx-cookie-service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { Ng2BRPipesModule } from 'ng2-brpipes';
 import { registerLocaleData } from '@angular/common';
-
+import { provideClient } from './graphql.module';
 import localePt from '@angular/common/locales/pt';
 
-import { AppComponent } from './app.component';
 import { DiagnosticoComponent } from './dashboard/diagnostico/diagnostico.component';
 import { LoginComponent } from './login/login.component';
 import { PacienteComponent } from './dashboard/paciente/paciente.component';
@@ -35,6 +37,7 @@ registerLocaleData(localePt, 'pt-BR');
   ],
   imports: [
     AppRoutingModule,
+    ApolloModule.forRoot(provideClient),
     BrowserModule,
     BrowserAnimationsModule,
     ClarityModule,
@@ -44,6 +47,7 @@ registerLocaleData(localePt, 'pt-BR');
     ReactiveFormsModule
   ],
   providers: [
+    CookieService,
     DialogService,
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ],

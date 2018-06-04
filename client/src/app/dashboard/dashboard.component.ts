@@ -1,5 +1,6 @@
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,10 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   title: String;
+  email: String;
 
   constructor(
     private router: Router,
-    private activiteRouter: ActivatedRoute
+    private activiteRouter: ActivatedRoute,
+    private cookie: CookieService
   ) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -21,6 +24,9 @@ export class DashboardComponent implements OnInit {
     });
   }
   ngOnInit() {
-
+    this.email = this.cookie.get('email');
+  }
+  deslogar(): void{
+    this.cookie.deleteAll();
   }
 }

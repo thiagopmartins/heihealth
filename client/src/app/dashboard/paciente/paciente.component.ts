@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { PacienteModel } from './PacienteModel';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogService } from '../../dialog.service';
+import { PacienteModel } from '../../models/PacienteModel';
+
 
 @Component({
   selector: 'app-paciente',
@@ -41,21 +42,30 @@ export class PacienteComponent implements OnInit {
       sexo: ['']
     });
     this.monitorar();
+
+    let i = 0;
+
+    for (i; i < 30; i++) {
+      this.pacientes[`${i}`] = { 
+        nome: i + 1,
+        id: i
+      };
+    }
+
   }
   monitorar(): void {
     this.form.get('cpf').valueChanges.subscribe(() => {
-      if(this.form.get('cpf').invalid)
+      if (this.form.get('cpf').invalid)
         (this.form.get('cpf').errors.required ? this.erro['cpf'] = "CPF obrigatório" : this.erro['cpf'] = "CPF inválido");
     });
     this.form.get('nome').valueChanges.subscribe(() => {
-      if(this.form.get('nome').invalid)
+      if (this.form.get('nome').invalid)
         (this.form.get('nome').errors.required ? this.erro['nome'] = "Nome obrigatório" : this.erro['nome'] = "Nome inválido");
-    });   
+    });
     this.form.get('telefone').valueChanges.subscribe(() => {
-      if(this.form.get('telefone').invalid)
+      if (this.form.get('telefone').invalid)
         (this.form.get('telefone').errors.required ? this.erro['telefone'] = "Telefone obrigatório" : this.erro['telefone'] = "Telefone inválido");
-    });      
-    console.log(this.erro);
+    });
   }
   onCreate(): void {
     this.basic = true;
@@ -80,7 +90,6 @@ export class PacienteComponent implements OnInit {
       (this.pacientes.length == undefined ? pacienteId = 0 : pacienteId = this.pacientes.length);
 
     this.pacientes[`${pacienteId}`] = this.form.value;
-    console.log(this.pacientes);
     this.pacienteSelecionado = null;
   }
   onDelete(): void {
@@ -88,7 +97,7 @@ export class PacienteComponent implements OnInit {
       .then((canDelete: boolean) => {
         if (canDelete) {
           this.pacientes.forEach((item, index) => {
-            if (item.id === this.pacienteSelecionado.id) this.pacientes.splice(index, 1);
+            if (item.id === this.pacienteSelecionado.id) this.pacientes.splice(index, 1); //PODE SER PELO CPF
           });
           this.pacienteSelecionado = null;
         }
