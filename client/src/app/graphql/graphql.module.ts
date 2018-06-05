@@ -13,8 +13,10 @@ export class GraphQLModule {
   constructor(apollo: Apollo, httpLink: HttpLink) {
     apollo.create({
       link: httpLink.create({ uri: "http://localhost:3000/api" }),
-      
-      cache: new InMemoryCache()
+
+      cache: new InMemoryCache({
+        addTypename: false
+      })
     });
   }
 }

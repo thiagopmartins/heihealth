@@ -1,4 +1,4 @@
-import { GraphQLModule } from './graphql.module';
+import { GraphQLModule } from './graphql/graphql.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApolloModule } from 'apollo-angular'
