@@ -7,6 +7,14 @@ export const QUERY_PACIENTES = gql`
             nome
             cpf
             telefone
+            sexo
+            nascimento
+            endereco
+            cep
+            numero
+            bairro
+            cidade
+            uf
         }
     }
 `;
@@ -15,6 +23,16 @@ export const MUTATION_DELETE_PACIENTE = gql`
     mutation deletePaciente($id: ID!){
         deletePaciente(id: $id)
     }
-`; 
+`;
+
+export const MUTATION_CREATE_PACIENTE = gql`
+    mutation createPaciente($input: PacienteCreateInput!){
+        createPaciente(input: $input){
+            id
+        }
+    }
+`;
+
+
 
 

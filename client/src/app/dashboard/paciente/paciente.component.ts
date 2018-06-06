@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { QUERY_PACIENTES, MUTATION_DELETE_PACIENTE } from './../../graphql/graphql.service';
+import { QUERY_PACIENTES, MUTATION_DELETE_PACIENTE, MUTATION_CREATE_PACIENTE } from './../../graphql/graphql.service';
 import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
 import { Component, OnInit, SimpleChanges } from '@angular/core';
@@ -40,21 +40,21 @@ export class PacienteComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      id: [],
-      nome: ['', Validators.required],
-      cpf: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/)])],
-      telefone: ['', Validators.required],
-      nascimento: [''],
-      endereco: [''],
-      cep: [''],
-      bairro: [''],
-      numero: [],
-      cidade: [''],
-      uf: [''],
-      sexo: ['']
+      nome: [null, Validators.required],
+      cpf: [null, Validators.compose([Validators.required, Validators.pattern(/[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/)])],
+      telefone: [null, Validators.required],
+      nascimento: [null],
+      endereco: [null],
+      cep: [null],
+      bairro: [null],
+      numero: [null],
+      cidade: [null],
+      uf: [null],
+      sexo: [null]
     });
     this.monitorar();
     this.getPacientes();
+    
   }
   monitorar(): void {
     this.form.get('cpf').valueChanges.subscribe(() => {
@@ -86,7 +86,34 @@ export class PacienteComponent implements OnInit {
   }
   onSave(): void {
     this.basic = false;
-
+    if (!this.editando) {//create
+      this.apollo.mutate({
+        mutation: MUTATION_CREATE_PACIENTE,
+        variables: { input: this.form.value },
+        context: {
+          headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
+        }
+      })
+        .toPromise()
+        .then(({ data }) => {
+          let paciente: PacienteModel;
+          paciente = this.form.value;
+          paciente.id = data['createPaciente'].id;
+          console.log(data);
+          this.pacientes.push(paciente);
+          console.log(this.pacientes);
+        })
+        .catch((error: GraphQLError) => {
+          console.log(this.form.value);
+          let cStat = error.message.split(/:/)[1].trim();
+          switch (cStat) {
+            case 'TokenExpiredError': {
+              this.router.navigate(['/']);
+              break
+            }
+          }
+        })
+    }
   }
   onDelete(): void {
     this.dialogService.confirm(`Deseja deletar o paciente ${this.pacienteSelecionado.nome} ?`)
@@ -94,46 +121,49 @@ export class PacienteComponent implements OnInit {
         if (canDelete) {
           this.apollo.mutate({
             mutation: MUTATION_DELETE_PACIENTE,
-            variables:{
+            variables: {
               id: this.pacienteSelecionado.id
             },
             context: {
               headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
             }
           })
-          .toPromise()
-          .then(({ data }) => {
-            if(data['deletePaciente']){
-              this.pacientes.forEach((item, index) => {
-                if (item.id === this.pacienteSelecionado.id) this.pacientes.splice(index, 1);
-              });
-              this.pacienteSelecionado = null;
-            }
-            
-          })
-          .catch((error: GraphQLError) => {
-            console.log(error);
-            let cStat = error.message.split(/:/)[1].trim();
-            switch(cStat){
-              case 'TokenExpiredError': {
-                this.router.navigate(['/']);
-                break
+            .toPromise()
+            .then(({ data }) => {
+              if (data['deletePaciente']) {
+                this.pacientes.forEach((item, index) => {
+                  if (item.id === this.pacienteSelecionado.id) this.pacientes.splice(index, 1);
+                });
+                this.pacienteSelecionado = null;
               }
-            }  
-          })           
+
+            })
+            .catch((error: GraphQLError) => {
+              console.log(error);
+              let cStat = error.message.split(/:/)[1].trim();
+              switch (cStat) {
+                case 'TokenExpiredError': {
+                  this.router.navigate(['/']);
+                  break
+                }
+              }
+            })
         }
       });
   }
-  getPacientes(): void{
+  getPacientes(): void {
     this.apollo.query({
-      query: QUERY_PACIENTES
+      query: QUERY_PACIENTES,
+      fetchPolicy: 'network-only'
     })
-    .subscribe(({ data }) => {   
-      //this.pacientes.length = 0;
-      data['pacientes'].filter((result: PacienteModel) => {
-        this.pacientes.push(result);
+      .subscribe(({ data }) => {
+        //this.pacientes.length = 0;
+        console.log(data);
+        data['pacientes'].filter((result: PacienteModel) => {
+          this.pacientes.push(result);
+        });
+        
       });
-    });
   }
-  
+
 }

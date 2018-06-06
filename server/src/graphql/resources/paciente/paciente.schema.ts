@@ -5,15 +5,15 @@ const pacienteTypes = `
         id: ID!
         nome: String!
         cpf: String!
-        sexo: String!
+        sexo: String
         telefone: String!
-        nascimento: String!
-        endereco: String!
-        cep: String!
-        numero: Int!
-        bairro: String!
-        cidade: String!
-        uf: String!
+        nascimento: String
+        endereco: String
+        cep: String
+        numero: Int
+        bairro: String
+        cidade: String
+        uf: String
         createdAt: String!
         updatedAt: String!       
     }
