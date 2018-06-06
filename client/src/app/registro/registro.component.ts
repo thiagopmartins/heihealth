@@ -1,3 +1,4 @@
+import { MUTATION_CREATE_USUARIO } from './../graphql/graphql.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, EmailValidator, FormBuilder } from '@angular/forms';
 import { UsuarioModel } from '../models/UsuarioModel';
@@ -31,13 +32,7 @@ export class RegistroComponent implements OnInit {
       this.submitLoading = true;
       this.apollo
         .mutate({
-          mutation: gql`
-            mutation createUser($input: UserCreateInput!) {
-              createUser(input: $input) {
-                id
-              }
-            }
-          `,
+          mutation: MUTATION_CREATE_USUARIO,
           variables: {
             input: this.registro.value
           },
