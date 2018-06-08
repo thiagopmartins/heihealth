@@ -48,7 +48,8 @@ export default (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes):
             },
             crm: {
                 type: DataTypes.STRING(128),
-                unique: true
+                unique: true,
+                allowNull: true
             }
         }, {
             tableName: 'users',

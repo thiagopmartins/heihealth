@@ -5,7 +5,7 @@ const userTypes = `
         id: ID!
         name: String!
         email: String!
-        crm: String!
+        crm: String
         createdAt: String!
         updatedAt: String!
         posts(first: Int, offset: Int): [ Post! ]!
@@ -15,13 +15,13 @@ const userTypes = `
         name: String!
         email: String!
         password: String!
-        crm: String!
+        crm: String
     }
 
     input UserUpdateInput {
         name: String!
         email: String!
-        crm: String!
+        crm: String
     }
 
     input UserUpdatePasswordInput {
