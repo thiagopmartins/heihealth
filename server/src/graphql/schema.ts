@@ -19,6 +19,7 @@ import { tokenTypes } from './resources/token/token.schema';
 import { userTypes } from './resources/user/user.schema';
 import { secretariaResolvers } from './resources/secretaria/secretaria.resolvers';
 import { secretariaTypes } from './resources/secretaria/secretaria.schema';
+import { anamneseTypes } from './resources/Anamnese/anamnese.schema';
 
 
 const resolvers = merge(
@@ -43,6 +44,7 @@ export default makeExecutableSchema({
         SchemaDefinition,
         Query,
         Mutation,
+        anamneseTypes,
         commentTypes,
         pacienteTypes,
         postTypes,
