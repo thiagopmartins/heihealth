@@ -16,12 +16,15 @@ import { pacienteTypes } from './resources/paciente/paciente.schema';
 import { postTypes } from './resources/post/post.schema';
 import { tokenTypes } from './resources/token/token.schema';
 import { userTypes } from './resources/user/user.schema';
+import { secretariaResolvers } from './resources/secretaria/secretaria.resolvers';
+import { secretariaTypes } from './resources/secretaria/secretaria.schema';
 
 
 const resolvers = merge(
     commentResolvers,
     pacienteResolvers,
     postResolvers,
+    secretariaResolvers,
     tokenResolvers,
     userResolvers
 );
@@ -41,6 +44,7 @@ export default makeExecutableSchema({
         commentTypes,
         pacienteTypes,
         postTypes,
+        secretariaTypes,
         tokenTypes,
         userTypes
     ],
