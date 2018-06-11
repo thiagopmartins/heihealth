@@ -22,6 +22,7 @@ const userTypes = `
         name: String!
         email: String!
         crm: String
+        password: String
     }
 
     input UserUpdatePasswordInput {
@@ -39,8 +40,10 @@ const userQueries = `
 const userMutations = `
     createUser(input: UserCreateInput!): User
     updateUser(input: UserUpdateInput!): User
+    updateUserId(id: ID!, input: UserUpdateInput!): User
     updateUserPassword(input: UserUpdatePasswordInput!): Boolean
     deleteUser: Boolean
+    deleteUserId(id: ID!): Boolean
 `;
 
 export {

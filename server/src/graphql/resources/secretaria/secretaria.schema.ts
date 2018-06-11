@@ -3,10 +3,11 @@ const secretariaTypes = `
     # Definições do tipo de usuário
     type Secretaria {
         id: ID!
-        createdAt: String!
-        updatedAt: String!
         user_id: Int!
         medico_id: Int!
+        createdAt: String!
+        updatedAt: String!
+
     }
 
     input SecretariaCreateInput {
@@ -22,7 +23,7 @@ const secretariaQueries = `
 
 const secretariaMutations = `
     createSecretaria(input: SecretariaCreateInput!): Secretaria
-    deleteSecretaria: Boolean
+    deleteSecretaria(id: ID!): Boolean
 `;
 
 export {

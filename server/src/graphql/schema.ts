@@ -1,3 +1,4 @@
+import { anamneseResolvers } from './resources/Anamnese/anamnese.resolvers';
 import { merge } from 'lodash';
 import { makeExecutableSchema } from 'graphql-tools';
 
@@ -21,6 +22,7 @@ import { secretariaTypes } from './resources/secretaria/secretaria.schema';
 
 
 const resolvers = merge(
+    anamneseResolvers,
     commentResolvers,
     pacienteResolvers,
     postResolvers,

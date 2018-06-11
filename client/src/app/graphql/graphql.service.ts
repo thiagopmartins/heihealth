@@ -19,6 +19,31 @@ export const QUERY_PACIENTES = gql`
     }
 `;
 
+export const QUERY_USER = gql`
+    query user($id: ID!){
+        user(id: $id){
+            id
+            name
+            email
+            crm
+        }
+    }
+`;
+
+export const MUTATION_DELETE_USER_ID = gql`
+    mutation deleteUserId($id: ID!){
+        deleteUserId(id: $id)
+    }
+`;
+
+export const MUTATION_UPDATE_USER = gql`
+    mutation updateUserId($id: ID!, $input: UserUpdateInput!){
+        updateUserId(id: $id, input: $input){
+            id
+        }
+    }
+`;
+
 export const MUTATION_DELETE_PACIENTE = gql`
     mutation deletePaciente($id: ID!){
         deletePaciente(id: $id)
@@ -57,6 +82,28 @@ export const MUTATION_CREATE_USUARIO = gql`
     }
 `;
 
+export const MUTATION_CREATE_SECRETARIA = gql`
+    mutation createSecretaria($input: SecretariaCreateInput!) {
+        createSecretaria(input: $input) {
+            id
+        }
+    }
+`;
+export const QUERY_SECRETARIAS = gql`
+    query secretarias($id: ID!){
+        secretarias(id: $id){
+            id
+            user_id
+            medico_id
+        }
+    }
+`;
+
+export const MUTATION_DELETE_SECRETARIA = gql`
+    mutation deleteSecretaria($id: ID!){
+        deleteSecretaria(id: $id)
+    }
+`;
 
 
 

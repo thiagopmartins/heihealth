@@ -81,6 +81,18 @@ export const userResolvers = {
             }).catch(handleError);
         }),
 
+        updateUserId: compose(...authResolvers)((parent, { id, input }, { db, authUser }: { db: DbConnection, authUser: AuthUser }, info: GraphQLResolveInfo) => {
+            id = parseInt(id);
+            return db.sequelize.transaction((t: Transaction) => {
+                return db.User
+                    .findById(id)
+                    .then((user: UserInstance) => {
+                        throwError(!user, `Usuário ID ${id} não existe!`);
+                        return user.update(input, { transaction: t });
+                    })
+            }).catch(handleError);
+        }),        
+
         updateUserPassword: compose(...authResolvers)((parent, { input }, { db, authUser }: { db: DbConnection, authUser: AuthUser }, info: GraphQLResolveInfo) => {
             return db.sequelize.transaction((t: Transaction) => {
                 return db.User
@@ -104,6 +116,19 @@ export const userResolvers = {
                     })
             }).catch(handleError);
         }),
+
+        deleteUserId: compose(...authResolvers)((parent, { id }, { db, authUser }: { db: DbConnection, authUser: AuthUser }, info: GraphQLResolveInfo) => {
+            id = parseInt(id);
+            return db.sequelize.transaction((t: Transaction) => {
+                return db.User
+                    .findById(id)
+                    .then((user: UserInstance) => {
+                        throwError(!user, `Usuário ID ${id} não existe!`);
+                        return user.destroy({ transaction: t })
+                            .then(user => !!user);
+                    })
+            }).catch(handleError);
+        })
     }
 
 };

@@ -13,19 +13,6 @@ import { DataLoaders } from '../../../interfaces/DataLoadersInterface';
 export const secretariaResolvers = {
 
     // ! PARAMETROS PADRÃO PARA OS RESOLVERS: (parent, args, context, info)
-    Secretaria: {
-
-        user_id: (secretaria, args, { db, dataloaders: { userLoader } }: { db: DbConnection, dataloaders: DataLoaders }, info: GraphQLResolveInfo) => {
-            return userLoader
-                .load({ key: secretaria.get('user_id'), info })
-                .catch(handleError);
-        },
-        medico_id: (secretaria, args, { db, dataloaders: { userLoader } }: { db: DbConnection, dataloaders: DataLoaders }, info: GraphQLResolveInfo) => {
-            return userLoader
-                .load({ key: secretaria.get('medico_id'), info })
-                .catch(handleError);
-        }        
-    },
 
     Query: {
 
@@ -43,14 +30,10 @@ export const secretariaResolvers = {
         secretaria: (parent, { id }, { db, requestedfields }: { db: DbConnection, requestedfields: RequestedFields }, info: GraphQLResolveInfo) => {
             id = parseInt(id);
             return db.Secretaria
-                .findById(id, {
-                    attributes: requestedfields.getFields(info, { keep: ['id'], exclude: ['posts'] })
-                })
-                .then((secretaria: SecretariaInstance) => {
-                    throwError(!secretaria, `Secretaria ID ${id} não existe!`);
-                    return secretaria;
-                })
-                .catch(handleError);
+                .findAll({
+                    attributes: requestedfields.getFields(info, { keep: ['id'], exclude: ['posts'] }),
+                    where: { user_id: id }
+                }).catch(handleError);
         },
     },
 
@@ -63,12 +46,13 @@ export const secretariaResolvers = {
             }).catch(handleError);
         }),
 
-        deleteSecretaria: compose(...authResolvers)((parent, args, { db, authUser }: { db: DbConnection, authUser: AuthUser }, info: GraphQLResolveInfo) => {
+        deleteSecretaria: compose(...authResolvers)((parent, { id }, { db, authUser }: { db: DbConnection, authUser: AuthUser }, info: GraphQLResolveInfo) => {
+            id = parseInt(id);
             return db.sequelize.transaction((t: Transaction) => {
                 return db.Secretaria
-                    .findById(authUser.id)
+                    .findOne({ where: { user_id: id } })
                     .then((secretaria: SecretariaInstance) => {
-                        throwError(!secretaria, `Secretaria ID ${authUser.id} não existe!`);
+                        throwError(!secretaria, `Secretaria ID ${id} não existe!`);
                         return secretaria.destroy({ transaction: t })
                             .then(secretaria => !!secretaria);
                     })

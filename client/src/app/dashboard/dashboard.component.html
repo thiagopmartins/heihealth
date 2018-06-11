@@ -38,7 +38,7 @@
         <clr-icon clrVerticalNavIcon shape="heart"></clr-icon>
         Pacientes
       </a>
-      <a clrVerticalNavLink routerLink="./secretaria" routerLinkActive="active">
+      <a *ngIf="previlegios == 'true'" clrVerticalNavLink routerLink="./secretaria" routerLinkActive="active">
         <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
         Secretárias
       </a>

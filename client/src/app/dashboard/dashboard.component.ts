@@ -11,6 +11,7 @@ export class DashboardComponent implements OnInit {
 
   title: String;
   email: String;
+  previlegios: String;
 
   constructor(
     private router: Router,
@@ -25,6 +26,7 @@ export class DashboardComponent implements OnInit {
   }
   ngOnInit() {
     this.email = this.cookie.get('email');
+    this.previlegios = this.cookie.get('previlegios');
   }
   deslogar(): void{
     this.cookie.deleteAll();
