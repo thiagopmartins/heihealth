@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { QUERY_PACIENTES, MUTATION_DELETE_PACIENTE, MUTATION_CREATE_PACIENTE } from './../../graphql/graphql.service';
+import { QUERY_PACIENTES, MUTATION_DELETE_PACIENTE, MUTATION_CREATE_PACIENTE, MUTATION_UPDATE_PACIENTE } from './../../graphql/graphql.service';
 import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
 import { Component, OnInit, SimpleChanges } from '@angular/core';
@@ -54,7 +54,7 @@ export class PacienteComponent implements OnInit {
     });
     this.monitorar();
     this.getPacientes();
-    
+
   }
   monitorar(): void {
     this.form.get('cpf').valueChanges.subscribe(() => {
@@ -99,20 +99,38 @@ export class PacienteComponent implements OnInit {
           let paciente: PacienteModel;
           paciente = this.form.value;
           paciente.id = data['createPaciente'].id;
-          console.log(data);
           this.pacientes.push(paciente);
-          console.log(this.pacientes);
+          this.editando = false;
+          this.pacienteSelecionado = null;          
         })
         .catch((error: GraphQLError) => {
-          console.log(this.form.value);
-          let cStat = error.message.split(/:/)[1].trim();
-          switch (cStat) {
-            case 'TokenExpiredError': {
-              this.router.navigate(['/']);
-              break
-            }
-          }
+          console.log(error);
+        });
+    } else {
+      this.apollo.mutate({
+        mutation: MUTATION_UPDATE_PACIENTE,
+        variables: { 
+          id: this.pacienteSelecionado.id,
+          input: this.form.value 
+        },
+        context: {
+          headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
+        }
+      })
+        .toPromise()
+        .then(({ data }) => {
+          let paciente: PacienteModel;
+          paciente = this.form.value;
+          paciente.id = this.pacienteSelecionado.id;
+          this.pacientes.forEach((item, index) => {
+            if (item.id === this.pacienteSelecionado.id) this.pacientes[`${index}`] = paciente;
+          });          
+          this.editando = false;
+          this.pacienteSelecionado = null;
         })
+        .catch((error: GraphQLError) => {
+          console.log(error);
+        });
     }
   }
   onDelete(): void {
@@ -162,7 +180,7 @@ export class PacienteComponent implements OnInit {
         data['pacientes'].filter((result: PacienteModel) => {
           this.pacientes.push(result);
         });
-        
+
       });
   }
 

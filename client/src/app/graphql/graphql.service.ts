@@ -33,6 +33,30 @@ export const MUTATION_CREATE_PACIENTE = gql`
     }
 `;
 
+export const MUTATION_UPDATE_PACIENTE = gql`
+    mutation updatePaciente($id: ID!, $input: PacienteUpdateInput!){
+        updatePaciente(id: $id, input: $input){
+            id
+        }
+    }
+`;
+
+export const MUTATION_CREATE_TOKEN = gql`
+    mutation createToken($email: String!, $password: String!) {
+        createToken(email: $email, password: $password) {
+            token
+        }
+    }
+`;
+
+export const MUTATION_CREATE_USUARIO = gql`
+    mutation createUser($input: UserCreateInput!) {
+        createUser(input: $input) {
+            id
+        }
+    }
+`;
+
 
 
 

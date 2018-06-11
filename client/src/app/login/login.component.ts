@@ -1,3 +1,4 @@
+import { MUTATION_CREATE_TOKEN } from './../graphql/graphql.service';
 import { Apollo } from 'apollo-angular';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -30,13 +31,7 @@ export class LoginComponent implements OnInit {
       this.submitLoading = true;
       this.apollo
         .mutate({
-          mutation: gql`
-            mutation createToken($email: String!, $password: String!) {
-              createToken(email: $email, password: $password) {
-                token
-              }
-            }
-          `,
+          mutation: MUTATION_CREATE_TOKEN,
           variables: {
             email: this.login.get('email').value,
             password: this.login.get('password').value
