@@ -105,5 +105,16 @@ export const MUTATION_DELETE_SECRETARIA = gql`
     }
 `;
 
+export const QUERY_ANAMNESES = gql`
+    query {
+        anamneses {
+            id
+            conteudo
+            medico_id
+            paciente_id
+        }
+    } 
+`;
+
 
 

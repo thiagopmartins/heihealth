@@ -1,33 +1,246 @@
-<form>
-
-  <section class="form-block">
-    <div class="form-group row">
-      <div class="col-xs-12	col-sm-12	col-md-12	col-lg-10	col-xl-10">
-        <label class="required" for="CPF">CPF do Paciente</label>
-        <input type="text" id="CPF" placeholder="000.000.000-00" size="20">
-        <button type="button" class="btn btn-icon btn-label">
-          <clr-icon shape="search"></clr-icon>
-          PESQUISAR
-        </button>
-      </div>
+<clr-datagrid [(clrDgSingleSelected)]="diagnosticoSelecionado" [clDgRowSelection]="true">
+  <clr-dg-action-bar>
+    <div class="btn-group">
+      <button type="button" class="btn btn-sm btn-success-outline" (click)="onCreate()">
+        <clr-icon shape="plus"></clr-icon> Adicionar</button>
+      <button type="button" class="btn btn-sm btn-danger-outline" (click)="onDelete()" [disabled]="!diagnosticoSelecionado">
+        <clr-icon shape="close"></clr-icon> Deletar</button>
+      <button type="button" class="btn btn-sm btn-secondary" (click)="onEdit()" [disabled]="!diagnosticoSelecionado">
+        <clr-icon shape="pencil"></clr-icon> Editar</button>
     </div>
-
-  </section>
-</form>
-<clr-datagrid>
-  <clr-dg-column [clrDgField]="'paciente'">Paciente</clr-dg-column>
-  <clr-dg-column>Médico Responsável</clr-dg-column>
-  <clr-dg-column>Diagnóstico</clr-dg-column>
-  <clr-dg-column>Data do diagonóstico</clr-dg-column>
-  <clr-dg-row *ngFor="let user of users">
-    <clr-dg-cell>{{ user.paciente }}</clr-dg-cell>
-    <clr-dg-cell>{{ user.medico }}</clr-dg-cell>
-    <clr-dg-cell>{{ user.diagnostico }}</clr-dg-cell>
-    <clr-dg-cell>{{ user.data }}</clr-dg-cell>
+  </clr-dg-action-bar>
+  <clr-dg-placeholder>Não há diagnosticos cadastrados!</clr-dg-placeholder>
+  <clr-dg-column [clrDgField]="'id'">ID</clr-dg-column>
+  <clr-dg-column [clrDgField]="'name'">Nome</clr-dg-column>
+  <clr-dg-column [clrDgField]="'email'">Email</clr-dg-column>
+  <clr-dg-row *clrDgItems="let diagnostico of diagnosticos" [clrDgItem]="diagnostico" (dblclick)="onEdit()">
+    <clr-dg-cell>{{diagnostico.id}}</clr-dg-cell>
+    <clr-dg-cell>{{diagnostico.name}}</clr-dg-cell>
+    <clr-dg-cell>{{diagnostico.email}}</clr-dg-cell>
   </clr-dg-row>
   <clr-dg-footer>
     <clr-dg-pagination #pagination [clrDgPageSize]="10">
-      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} de {{ users.length }} diagnosticos
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} de {{pagination.totalItems}} Secretárias
     </clr-dg-pagination>
   </clr-dg-footer>
 </clr-datagrid>
+
+<clr-wizard #wizardxl [(clrWizardOpen)]="xlOpen">
+  <clr-wizard-title>Anamnese Geral</clr-wizard-title>
+
+  <clr-wizard-button [type]="'cancel'">Cancelar</clr-wizard-button>
+  <clr-wizard-button [type]="'previous'">Anterior</clr-wizard-button>
+  <clr-wizard-button [type]="'next'">Proximo</clr-wizard-button>
+  <clr-wizard-button [type]="'finish'" (click)="onTeste()">Finalizar</clr-wizard-button>
+
+  <clr-wizard-page>
+    <ng-template clrPageTitle>Dados Iniciais</ng-template>
+    <form [formGroup]="form">
+      <section class="form-block" id="cadastro-paciente">
+        <div class="form-group">
+          <label for="sangue">Tipo Sanguineo: </label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
+            <input type="text" id="sangue" formControlName="sangue" placeholder="A+" size="5" maxlength="5" autocomplete="off">
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="descricao">Reclamação Atual: </label>
+          <textarea id="descricao" formControlName="descricao" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="medicamentos">Medicamentos que faz uso: </label>
+          <textarea id="medicamentos" formControlName="medicamentos" rows="3"></textarea>
+        </div>
+      </section>
+
+
+    </form>
+  </clr-wizard-page>
+
+  <clr-wizard-page>
+    <ng-template clrPageTitle>Procedimentos Cirurgicos</ng-template>
+    <form [formGroup]="form">
+      <section class="form-block" id="cadastro-paciente">
+        <div class="form-group">
+          <label for="procedimento1">Procedimento: </label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
+            <input type="text" id="procedimento1" formControlName="procedimento1" size="20" maxlength="22" autocomplete="off">
+          </label>
+          <label for="data1" class="required">Data:</label>
+          <input type="date" formControlName="data1" id="data1" clrDate size="14" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="procedimento2">Procedimento: </label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
+            <input type="text" id="procedimento2" formControlName="procedimento2" size="20" maxlength="22" autocomplete="off">
+          </label>
+          <label for="data2" class="required">Data:</label>
+          <input type="date" formControlName="data2" id="data2" clrDate size="14" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="procedimento3">Procedimento: </label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
+            <input type="text" id="procedimento3" formControlName="procedimento3" size="20" maxlength="22" autocomplete="off">
+          </label>
+          <label for="data" class="required">Data:</label>
+          <input type="date" formControlName="data3" id="data3" clrDate size="14" autocomplete="off">
+        </div>
+
+      </section>
+
+
+    </form>
+
+  </clr-wizard-page>
+
+  <clr-wizard-page>
+    <ng-template clrPageTitle>Internações</ng-template>
+    <form [formGroup]="form">
+      <section class="form-block" id="cadastro-paciente">
+        <div class="form-group">
+          <label for="internacao1">Internação: </label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
+            <input type="text" id="internacao1" formControlName="internacao1" size="20" maxlength="22" autocomplete="off">
+          </label>
+          <label for="data_internacao1" class="required">Data:</label>
+          <input type="date" formControlName="data_internacao1" id="data_internacao1" clrDate size="14" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="internacao2">Internação: </label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
+            <input type="text" id="internacao2" formControlName="internacao2" size="20" maxlength="22" autocomplete="off">
+          </label>
+          <label for="data_internacao2" class="required">Data:</label>
+          <input type="date" formControlName="data_internacao2" id="data_internacao2" clrDate size="14" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="internacao3">Internação: </label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
+            <input type="text" id="internacao3" formControlName="internacao3" size="20" maxlength="22" autocomplete="off">
+          </label>
+          <label for="data_internacao3" class="required">Data:</label>
+          <input type="date" formControlName="data_internacao3" id="data_internacao3" clrDate size="14" autocomplete="off">
+        </div>
+
+      </section>
+
+
+    </form>
+  </clr-wizard-page>
+  <clr-wizard-page>
+    <ng-template clrPageTitle>Geral</ng-template>
+    <form [formGroup]="form">
+      <section class="form-block" id="cadastro-paciente">
+        <div class="form-group">
+          <label>Fumante? </label>
+          <div class="radio-inline">
+            <input id="fuma_sim" value="fuma_sim" name="fumante" type="radio" formControlName="fumante">
+            <label for="fuma_sim">
+              Sim
+            </label>
+          </div>
+          <div class="radio-inline">
+            <input id="fuma_nao" value="fuma_nao" name="fumante" type="radio" formControlName="fumante">
+            <label for="fuma_nao">
+              Não
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Uso de bebidas alcoolicas? </label>
+          <div class="radio-inline">
+            <input id="bebe_sim" value="bebe_sim" name="alcoolico" type="radio" formControlName="alcoolico">
+            <label for="bebe_sim">
+              Sim
+            </label>
+          </div>
+          <div class="radio-inline">
+            <input id="bebe_nao" value="bebe_nao" name="alcoolico" type="radio" formControlName="alcoolico">
+            <label for="bebe_nao">
+              Não
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Uso de drogas ilicitas? </label>
+          <div class="radio-inline">
+            <input id="drogas_sim" value="drogas_sim" name="drogas" type="radio" formControlName="drogas">
+            <label for="drogas_sim">
+              Sim
+            </label>
+          </div>
+          <div class="radio-inline">
+            <input id="drogas_nao" value="drogas_nao" name="drogas" type="radio" formControlName="drogas">
+            <label for="drogas_nao">
+              Não
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Pratica exercicios fisicos? </label>
+          <div class="radio-inline">
+            <input id="pratica_sim" value="pratica_sim" name="exercicio" type="radio" formControlName="exercicio">
+            <label for="pratica_sim">
+              Sim
+            </label>
+          </div>
+          <div class="radio-inline">
+            <input id="pratica_nao" value="pratica_nao" name="exercicio" type="radio" formControlName="exercicio">
+            <label for="pratica_nao">
+              Não
+            </label>
+          </div>
+          <label for="vezes">Quantas vezes: </label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
+            <input type="number" id="vezes" formControlName="vezes" size="5" maxlength="5" autocomplete="off">
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Diabetes? </label>
+          <div class="radio-inline">
+            <input id="diabetes_sim" value="diabetes_sim" name="diabetes" type="radio" formControlName="diabetes">
+            <label for="diabetes_sim">
+              Sim
+            </label>
+          </div>
+          <div class="radio-inline">
+            <input id="diabetes_nao" value="diabetes_nao" name="diabetes" type="radio" formControlName="diabetes">
+            <label for="diabetes_nao">
+              Não
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Hipertensão? </label>
+          <div class="radio-inline">
+            <input id="hipertensao_sim" value="hipertensao_sim" name="hipertensao" type="radio" formControlName="hipertensao">
+            <label for="hipertensao_sim">
+              Sim
+            </label>
+          </div>
+          <div class="radio-inline">
+            <input id="hipertensao_nao" value="hipertensao_nao" name="hipertensao" type="radio" formControlName="hipertensao">
+            <label for="hipertensao_nao">
+              Não
+            </label>
+          </div>
+        </div>
+      </section>
+
+
+    </form>
+  </clr-wizard-page>
+  <clr-wizard-page>
+    <ng-template clrPageTitle>Informações Adicionais</ng-template>
+    <form [formGroup]="form">
+      <section class="form-block" id="cadastro-paciente">
+        <div class="form-group">
+          <label for="adicional">Adicional: </label>
+          <textarea id="adicional" formControlName="adicional" rows="10"></textarea>
+        </div>
+      </section>
+
+
+    </form>
+  </clr-wizard-page>
+</clr-wizard>
