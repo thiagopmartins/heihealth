@@ -17,8 +17,8 @@
   "production": {
     "username": "root",
     "password": "root",
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "database": "heihealth",
+    "host": "2001:4860:4864:1:4cce:d8b4:abc1:b155",
     "dialect": "mysql"
   },
   "pipelines": {

@@ -7,8 +7,8 @@ import { Apollo } from 'apollo-angular';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpHeaders } from '@angular/common/http';
 import { GraphQLError } from 'graphql';
-import { QUERY_ANAMNESES } from '../../graphql/graphql.service';
-import { ClrWizard } from "@clr/angular";
+import { QUERY_ANAMNESES, MUTATION_CREATE_ANAMNESE } from '../../graphql/graphql.service';
+import { ClrWizard, ClrWizardPage } from "@clr/angular";
 
 @Component({
   selector: 'app-diagnostico',
@@ -18,11 +18,12 @@ import { ClrWizard } from "@clr/angular";
 export class DiagnosticoComponent implements OnInit {
 
   @ViewChild("wizardxl") wizardExtraLarge: ClrWizard;
+  @ViewChild("finish") lastPage: ClrWizardPage;
 
   xlOpen: boolean = false;
 
-  diagnosticos: AnamneseModel[] = [];
-  diagnosticoSelecionado: AnamneseModel;
+  anamneses: AnamneseModel[] = [];
+  anamneseSelecionada: AnamneseModel;
   form: FormGroup;
   erro: string[] = [];
   basic: boolean;
@@ -46,13 +47,13 @@ export class DiagnosticoComponent implements OnInit {
       procedimento1: [null],
       data1: [null],
       procedimento2: [null],
-      data2: [null], 
+      data2: [null],
       procedimento3: [null],
       data3: [null],
       internacao1: [null],
       data_internacao1: [null],
       internacao2: [null],
-      data_internacao2: [null], 
+      data_internacao2: [null],
       internacao3: [null],
       data_internacao3: [null],
       fumante: [null],
@@ -66,14 +67,11 @@ export class DiagnosticoComponent implements OnInit {
     });
     this.getAnamnese();
   }
-  onTeste(): void {
-    console.log(this.form)
-  }
   onCreate(): void {
     this.xlOpen = true;
     this.editando = false;
-    if (this.diagnosticoSelecionado) {
-      this.diagnosticoSelecionado = null;
+    if (this.anamneseSelecionada) {
+      this.anamneseSelecionada = null;
     }
     this.form.reset();
   }
@@ -81,66 +79,43 @@ export class DiagnosticoComponent implements OnInit {
     this.form.reset();
     this.editando = true;
     this.xlOpen = true;
-    console.log(this.diagnosticoSelecionado);
-    this.form.patchValue(this.diagnosticoSelecionado);
+    this.form.patchValue(JSON.parse(atob(this.anamneseSelecionada.conteudo)));
   }
   onSave(): void {
     this.xlOpen = false;
+    let anamneseValor: AnamneseModel = {
+      conteudo: btoa(JSON.stringify(this.form.value)),
+      medico_id: parseInt(this.cookie.get('userID')),
+      paciente_id: 20
+    }
     if (!this.editando) {//create
       this.apollo.mutate({
-        mutation: QUERY_ANAMNESES,
-        variables: { input: this.form.value },
+        mutation: MUTATION_CREATE_ANAMNESE,
+        variables: { input: anamneseValor },
         context: {
           headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
         }
       })
         .toPromise()
         .then(({ data }) => {
-          let anamnese: AnamneseModel;
-          anamnese = this.form.value;
-          anamnese.id = data['createAnamnese'].id;
-          this.diagnosticos.push(anamnese);
-          console.log(anamnese);
-          
-        })
-        .catch((error: GraphQLError) => {
-          console.log(error);
-        });
-    } else {
-      this.apollo.mutate({
-        mutation: QUERY_ANAMNESES,
-        variables: {
-          input: this.form.value,
-          id: this.diagnosticoSelecionado.id
-        },
-        context: {
-          headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
-        }
-      })
-        .toPromise()
-        .then(({ data }) => {
-          let secretaria: AnamneseModel;
-          secretaria = this.form.value;
-          secretaria.id = this.diagnosticoSelecionado.id;
-          this.diagnosticos.forEach((item, index) => {
-            if (item.id === this.diagnosticoSelecionado.id) this.diagnosticos[`${index}`] = secretaria;
-          });
-          this.editando = false;
-          this.diagnosticoSelecionado = null;
+          console.log(anamneseValor);
+          anamneseValor.id = data['createAnamnese'].id;
+          this.anamneses.push(anamneseValor);
         })
         .catch((error: GraphQLError) => {
           console.log(error);
         });
     }
+    this.doReset();
   }
   onDelete(): void {
-    this.dialogService.confirm(`Deseja deletar o paciente ${this.diagnosticoSelecionado} ?`)
+    this.dialogService.confirm(`Deseja deletar o paciente ${this.anamneseSelecionada} ?`)
       .then((canDelete: boolean) => {
         if (canDelete) {
           this.apollo.mutate({
             mutation: QUERY_ANAMNESES,
             variables: {
-              id: this.diagnosticoSelecionado.id
+              id: this.anamneseSelecionada.id
             },
             context: {
               headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
@@ -152,7 +127,7 @@ export class DiagnosticoComponent implements OnInit {
               this.apollo.mutate({
                 mutation: QUERY_ANAMNESES,
                 variables: {
-                  id: this.diagnosticoSelecionado.id
+                  id: this.anamneseSelecionada.id
                 },
                 context: {
                   headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
@@ -161,11 +136,11 @@ export class DiagnosticoComponent implements OnInit {
                 .toPromise()
                 .then(({ data }) => {
                   if (data['deleteUserId']) {
-                    this.diagnosticos.forEach((item, index) => {
-                      if (item.id === this.diagnosticoSelecionado.id) this.diagnosticos.splice(index, 1);
+                    this.anamneses.forEach((item, index) => {
+                      if (item.id === this.anamneseSelecionada.id) this.anamneses.splice(index, 1);
                     });
                   }
-                  this.diagnosticoSelecionado = null;
+                  this.anamneseSelecionada = null;
                 })
             })
             .catch((error: GraphQLError) => {
@@ -188,9 +163,11 @@ export class DiagnosticoComponent implements OnInit {
     })
       .subscribe(({ data }) => {
         data['anamneses'].filter((result: AnamneseModel) => {
-          this.diagnosticos.push(result);
+          this.anamneses.push(result);
         });
-        console.log(data);
       });
+  }
+  doReset(): void {
+    this.wizardExtraLarge.reset();
   }
 }

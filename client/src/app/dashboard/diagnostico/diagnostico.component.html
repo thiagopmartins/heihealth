@@ -1,22 +1,22 @@
-<clr-datagrid [(clrDgSingleSelected)]="diagnosticoSelecionado" [clDgRowSelection]="true">
+<clr-datagrid [(clrDgSingleSelected)]="anamneseSelecionada" [clDgRowSelection]="true">
   <clr-dg-action-bar>
     <div class="btn-group">
       <button type="button" class="btn btn-sm btn-success-outline" (click)="onCreate()">
         <clr-icon shape="plus"></clr-icon> Adicionar</button>
-      <button type="button" class="btn btn-sm btn-danger-outline" (click)="onDelete()" [disabled]="!diagnosticoSelecionado">
+      <button type="button" class="btn btn-sm btn-danger-outline" (click)="onDelete()" [disabled]="!anamneseSelecionada">
         <clr-icon shape="close"></clr-icon> Deletar</button>
-      <button type="button" class="btn btn-sm btn-secondary" (click)="onEdit()" [disabled]="!diagnosticoSelecionado">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="onEdit()" [disabled]="!anamneseSelecionada">
         <clr-icon shape="pencil"></clr-icon> Editar</button>
     </div>
   </clr-dg-action-bar>
   <clr-dg-placeholder>Não há diagnosticos cadastrados!</clr-dg-placeholder>
   <clr-dg-column [clrDgField]="'id'">ID</clr-dg-column>
-  <clr-dg-column [clrDgField]="'name'">Nome</clr-dg-column>
-  <clr-dg-column [clrDgField]="'email'">Email</clr-dg-column>
-  <clr-dg-row *clrDgItems="let diagnostico of diagnosticos" [clrDgItem]="diagnostico" (dblclick)="onEdit()">
-    <clr-dg-cell>{{diagnostico.id}}</clr-dg-cell>
-    <clr-dg-cell>{{diagnostico.name}}</clr-dg-cell>
-    <clr-dg-cell>{{diagnostico.email}}</clr-dg-cell>
+  <clr-dg-column [clrDgField]="'email'">Medico</clr-dg-column>
+  ]<clr-dg-column [clrDgField]="'data'">Data</clr-dg-column>
+  <clr-dg-row *clrDgItems="let anamnese of anamneses" [clrDgItem]="anamnese" (dblclick)="onEdit()">
+    <clr-dg-cell>{{anamnese.id}}</clr-dg-cell>
+    <clr-dg-cell>{{anamnese.medico_id}}</clr-dg-cell>
+    <clr-dg-cell>{{anamnese.createdAt | date: 'shortDate'}}</clr-dg-cell>
   </clr-dg-row>
   <clr-dg-footer>
     <clr-dg-pagination #pagination [clrDgPageSize]="10">
@@ -31,7 +31,7 @@
   <clr-wizard-button [type]="'cancel'">Cancelar</clr-wizard-button>
   <clr-wizard-button [type]="'previous'">Anterior</clr-wizard-button>
   <clr-wizard-button [type]="'next'">Proximo</clr-wizard-button>
-  <clr-wizard-button [type]="'finish'" (click)="onTeste()">Finalizar</clr-wizard-button>
+  <clr-wizard-button [type]="'finish'" (click)="onSave()">Finalizar</clr-wizard-button>
 
   <clr-wizard-page>
     <ng-template clrPageTitle>Dados Iniciais</ng-template>
@@ -67,23 +67,23 @@
             <input type="text" id="procedimento1" formControlName="procedimento1" size="20" maxlength="22" autocomplete="off">
           </label>
           <label for="data1" class="required">Data:</label>
-          <input type="date" formControlName="data1" id="data1" clrDate size="14" autocomplete="off">
+          <input type="date" formControlName="data1" id="data1" size="35">
         </div>
         <div class="form-group">
           <label for="procedimento2">Procedimento: </label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
             <input type="text" id="procedimento2" formControlName="procedimento2" size="20" maxlength="22" autocomplete="off">
           </label>
-          <label for="data2" class="required">Data:</label>
-          <input type="date" formControlName="data2" id="data2" clrDate size="14" autocomplete="off">
+          <label for="data2">Data:</label>
+          <input type="date" formControlName="data2" id="data2" size="35">
         </div>
         <div class="form-group">
           <label for="procedimento3">Procedimento: </label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
             <input type="text" id="procedimento3" formControlName="procedimento3" size="20" maxlength="22" autocomplete="off">
           </label>
-          <label for="data" class="required">Data:</label>
-          <input type="date" formControlName="data3" id="data3" clrDate size="14" autocomplete="off">
+          <label for="data3">Data: </label>
+          <input type="date" id="data3" formControlName="data3" size="35">
         </div>
 
       </section>
@@ -103,7 +103,7 @@
             <input type="text" id="internacao1" formControlName="internacao1" size="20" maxlength="22" autocomplete="off">
           </label>
           <label for="data_internacao1" class="required">Data:</label>
-          <input type="date" formControlName="data_internacao1" id="data_internacao1" clrDate size="14" autocomplete="off">
+          <input type="date" formControlName="data_internacao1" id="data_internacao1" size="35">
         </div>
         <div class="form-group">
           <label for="internacao2">Internação: </label>
@@ -111,7 +111,7 @@
             <input type="text" id="internacao2" formControlName="internacao2" size="20" maxlength="22" autocomplete="off">
           </label>
           <label for="data_internacao2" class="required">Data:</label>
-          <input type="date" formControlName="data_internacao2" id="data_internacao2" clrDate size="14" autocomplete="off">
+          <input type="date" formControlName="data_internacao2" id="data_internacao2" size="35">
         </div>
         <div class="form-group">
           <label for="internacao3">Internação: </label>
@@ -119,7 +119,7 @@
             <input type="text" id="internacao3" formControlName="internacao3" size="20" maxlength="22" autocomplete="off">
           </label>
           <label for="data_internacao3" class="required">Data:</label>
-          <input type="date" formControlName="data_internacao3" id="data_internacao3" clrDate size="14" autocomplete="off">
+          <input type="date" formControlName="data_internacao3" id="data_internacao3" size="35">
         </div>
 
       </section>
@@ -192,7 +192,7 @@
           </div>
           <label for="vezes">Quantas vezes: </label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-sm">
-            <input type="number" id="vezes" formControlName="vezes" size="5" maxlength="5" autocomplete="off">
+            <input type="text" id="vezes" formControlName="vezes">
           </label>
         </div>
         <div class="form-group">
@@ -230,7 +230,7 @@
 
     </form>
   </clr-wizard-page>
-  <clr-wizard-page>
+  <clr-wizard-page #finish>
     <ng-template clrPageTitle>Informações Adicionais</ng-template>
     <form [formGroup]="form">
       <section class="form-block" id="cadastro-paciente">

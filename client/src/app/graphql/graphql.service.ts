@@ -112,8 +112,17 @@ export const QUERY_ANAMNESES = gql`
             conteudo
             medico_id
             paciente_id
+            createdAt
         }
     } 
+`;
+
+export const MUTATION_CREATE_ANAMNESE = gql`
+    mutation createAnamnese($input: AnamneseCreateInput!){
+        createAnamnese(input: $input){
+            id
+        }
+    }
 `;
 
 

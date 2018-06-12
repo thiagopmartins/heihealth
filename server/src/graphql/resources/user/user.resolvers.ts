@@ -11,20 +11,6 @@ import { UserInstance } from "../../../models/UserModel";
 
 export const userResolvers = {
 
-    // ! PARAMETROS PADRÃO PARA OS RESOLVERS: (parent, args, context, info)
-    User: {
-
-        posts: (user, { first = 10, offset = 0 }, { db, requestedfields }: { db: DbConnection, requestedfields: RequestedFields }, info: GraphQLResolveInfo) => {
-            return db.Post
-                .findAll({
-                    where: { author: user.get('id') },
-                    limit: first,
-                    offset: offset,
-                    attributes: requestedfields.getFields(info, { keep: ['id'], exclude: ['comments'] })
-                }).catch(handleError);
-        }
-    },
-
     Query: {
 
         users: (parent, { first = 10, offset = 0 }, { db, requestedfields }: { db: DbConnection, requestedfields: RequestedFields }, info: GraphQLResolveInfo) => {

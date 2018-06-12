@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clusters": "set NODE_ENV=development && set port=8080 && set JWT_SECRET=iron_man && node dist/clusters",
+    "clusters": "set NODE_ENV=production && set port=8080 && set JWT_SECRET=iron_man && node dist/clusters",
     "build": "npm run gulp build",
     "start": "npm run build & npm run clusters",
     "dev": "set NODE_ENV=development && set JWT_SECRET=iron_man && nodemon --delay 5 dist/index",
