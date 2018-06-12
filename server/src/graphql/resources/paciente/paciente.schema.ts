@@ -50,6 +50,7 @@ const pacienteTypes = `
 const pacienteQueries = `
     pacientes(first: Int, offset: Int): [ Paciente! ]!
     paciente(id: ID!): Paciente
+    pacienteCpf(cpf: String!): Paciente
 `;
 
 const pacienteMutations = `

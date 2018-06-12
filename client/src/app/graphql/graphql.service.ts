@@ -19,6 +19,17 @@ export const QUERY_PACIENTES = gql`
     }
 `;
 
+export const QUERY_PACIENTE_CPF = gql`
+    query pacienteCpf($cpf: String!){
+        pacienteCpf(cpf: $cpf){
+            id
+            nome
+            cpf
+        }
+    }
+
+`;
+
 export const QUERY_USER = gql`
     query user($id: ID!){
         user(id: $id){
@@ -104,6 +115,19 @@ export const MUTATION_DELETE_SECRETARIA = gql`
         deleteSecretaria(id: $id)
     }
 `;
+
+export const QUERY_ANAMNESE_PACIENTE = gql`
+    query anamnesePaciente($paciente_id: Int!){
+        anamnesePaciente(paciente_id: $paciente_id) {
+            id
+            conteudo
+            medico_id
+            paciente_id
+            createdAt
+        }
+    } 
+`;
+
 
 export const QUERY_ANAMNESES = gql`
     query {

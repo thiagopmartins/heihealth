@@ -1,3 +1,4 @@
+import { QUERY_PACIENTE_CPF, QUERY_ANAMNESE_PACIENTE } from './../../graphql/graphql.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AnamneseModel } from '../../models/AnamneseModel';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -9,6 +10,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { GraphQLError } from 'graphql';
 import { QUERY_ANAMNESES, MUTATION_CREATE_ANAMNESE } from '../../graphql/graphql.service';
 import { ClrWizard, ClrWizardPage } from "@clr/angular";
+import { UsuarioModel } from '../../models/UsuarioModel';
+import { PacienteModel } from '../../models/PacienteModel';
 
 @Component({
   selector: 'app-diagnostico',
@@ -24,10 +27,14 @@ export class DiagnosticoComponent implements OnInit {
 
   anamneses: AnamneseModel[] = [];
   anamneseSelecionada: AnamneseModel;
+  paciente: PacienteModel;
+  pacienteExiste: boolean = false;
+  medico: UsuarioModel;
   form: FormGroup;
   erro: string[] = [];
   basic: boolean;
   editando: boolean = false;
+  cpf: String;
 
   constructor(
     private fb: FormBuilder,
@@ -65,7 +72,6 @@ export class DiagnosticoComponent implements OnInit {
       adicional: [null],
       hipertensao: [null]
     });
-    this.getAnamnese();
   }
   onCreate(): void {
     this.xlOpen = true;
@@ -86,7 +92,7 @@ export class DiagnosticoComponent implements OnInit {
     let anamneseValor: AnamneseModel = {
       conteudo: btoa(JSON.stringify(this.form.value)),
       medico_id: parseInt(this.cookie.get('userID')),
-      paciente_id: 20
+      paciente_id: this.paciente.id
     }
     if (!this.editando) {//create
       this.apollo.mutate({
@@ -156,13 +162,29 @@ export class DiagnosticoComponent implements OnInit {
         }
       });
   }
-  getAnamnese(): void {
+  onSearch(): void {
+    this.anamneses = [];
+    this.pacienteExiste = false;
     this.apollo.query({
-      query: QUERY_ANAMNESES,
+      query: QUERY_PACIENTE_CPF,
+      fetchPolicy: 'network-only',
+      variables: { cpf: this.cpf }
+    })
+      .subscribe(({ data }) => {
+        this.paciente = data['pacienteCpf'];
+        this.pacienteExiste = true;
+        this.getAnamnese(this.paciente.id);
+      });
+  }
+  getAnamnese(pacienteId: number): void {
+
+    this.apollo.query({
+      query: QUERY_ANAMNESE_PACIENTE,
+      variables: { paciente_id: pacienteId },
       fetchPolicy: 'network-only'
     })
       .subscribe(({ data }) => {
-        data['anamneses'].filter((result: AnamneseModel) => {
+        data['anamnesePaciente'].filter((result: AnamneseModel) => {
           this.anamneses.push(result);
         });
       });

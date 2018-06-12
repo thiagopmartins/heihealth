@@ -34,7 +34,20 @@ export const pacienteResolvers = {
                     return paciente;
                 })
                 .catch(handleError);
-        }
+        },
+
+        pacienteCpf: (parent, { cpf }, { db, requestedfields }: { db: DbConnection, requestedfields: RequestedFields }, info: GraphQLResolveInfo) => {
+            return db.Paciente
+                .findOne({
+                    where: { cpf: cpf },
+                    attributes: requestedfields.getFields(info, { keep: ['id'], exclude: ['posts'] })
+                })
+                .then((paciente: PacienteInstance) => {
+                    throwError(!paciente, `Paciente ${cpf} não existe!`);
+                    return paciente;
+                })
+                .catch(handleError);
+        }        
     },
 
     Mutation: {

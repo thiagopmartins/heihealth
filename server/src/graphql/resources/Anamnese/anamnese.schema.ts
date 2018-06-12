@@ -20,6 +20,7 @@ const anamneseTypes = `
 const anamneseQueries = `
     anamneses(first: Int, offset: Int): [ Anamnese! ]!
     anamnese(id: ID!): Anamnese
+    anamnesePaciente(paciente_id: Int!): [ Anamnese! ]!
 `;
 
 const anamneseMutations = `

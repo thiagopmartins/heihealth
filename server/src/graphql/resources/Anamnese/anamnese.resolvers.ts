@@ -34,7 +34,18 @@ export const anamneseResolvers = {
                     return anamnese;
                 })
                 .catch(handleError);
-        }
+        },
+        anamnesePaciente: (parent, { paciente_id, first = 10, offset = 0 }, { db, requestedfields }: { db: DbConnection, requestedfields: RequestedFields }, info: GraphQLResolveInfo) => {
+            paciente_id = parseInt(paciente_id);
+            console.log(paciente_id);
+            return db.Anamnese
+                .findAll({
+                    limit: first,
+                    offset: offset,
+                    attributes: requestedfields.getFields(info, { keep: ['id'], exclude: ['posts'] }),
+                    where: { paciente_id: paciente_id }
+                }).catch(handleError);
+        }        
     },
 
     Mutation: {
