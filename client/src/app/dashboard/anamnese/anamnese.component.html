@@ -17,7 +17,7 @@
   <clr-dg-placeholder>Pesquise um paciente!</clr-dg-placeholder>
   <clr-dg-column [clrDgField]="'id'">ID</clr-dg-column>
   <clr-dg-column [clrDgField]="'paciente'">Paciente</clr-dg-column>
-  <clr-dg-column [clrDgField]="'medico'">Medico</clr-dg-column>
+  <clr-dg-column [clrDgField]="'medico'">Medico Id</clr-dg-column>
   <clr-dg-column [clrDgField]="'data'">Data</clr-dg-column>
   <clr-dg-row *clrDgItems="let anamnese of anamneses" [clrDgItem]="anamnese" (dblclick)="onEdit()">
     <clr-dg-cell>{{anamnese.id}}</clr-dg-cell>

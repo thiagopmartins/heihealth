@@ -57,7 +57,7 @@ export const anamneseResolvers = {
             }).catch(handleError);
         },
 
-        updateAnamnese: compose(...authResolvers)((parent, { id, input }, { db, authUser }: { db: DbConnection, authUser: AuthUser }, info: GraphQLResolveInfo) => {
+        updateAnamnese: (parent, { id, input }, { db, authUser }: { db: DbConnection, authUser: AuthUser }, info: GraphQLResolveInfo) => {
             id = parseInt(id);
             return db.sequelize.transaction((t: Transaction) => {
                 return db.Anamnese
@@ -67,7 +67,7 @@ export const anamneseResolvers = {
                         return anamnese.update(input, { transaction: t });
                     })
             }).catch(handleError);
-        }),
+        },
 
         deleteAnamnese: compose(...authResolvers)((parent, { id }, { db, authUser }: { db: DbConnection, authUser: AuthUser }, info: GraphQLResolveInfo) => {
             id = parseInt(id);

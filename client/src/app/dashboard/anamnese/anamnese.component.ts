@@ -1,4 +1,4 @@
-import { QUERY_PACIENTE_CPF, QUERY_ANAMNESE_PACIENTE } from './../../graphql/graphql.service';
+import { QUERY_PACIENTE_CPF, QUERY_ANAMNESE_PACIENTE, MUTATION_UPDATE_ANAMNESE, MUTATION_DELETE_ANAMNESE, MUTATION_CREATE_ANAMNESE } from './../../graphql/graphql.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AnamneseModel } from '../../models/AnamneseModel';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,17 +8,16 @@ import { Apollo } from 'apollo-angular';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpHeaders } from '@angular/common/http';
 import { GraphQLError } from 'graphql';
-import { QUERY_ANAMNESES, MUTATION_CREATE_ANAMNESE } from '../../graphql/graphql.service';
 import { ClrWizard, ClrWizardPage } from "@clr/angular";
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { PacienteModel } from '../../models/PacienteModel';
 
 @Component({
-  selector: 'app-diagnostico',
-  templateUrl: './diagnostico.component.html',
-  styleUrls: ['./diagnostico.component.css']
+  selector: 'app-anamnese',
+  templateUrl: './anamnese.component.html',
+  styleUrls: ['./anamnese.component.css']
 })
-export class DiagnosticoComponent implements OnInit {
+export class AnamneseComponent implements OnInit {
 
   @ViewChild("wizardxl") wizardExtraLarge: ClrWizard;
   @ViewChild("finish") lastPage: ClrWizardPage;
@@ -111,15 +110,42 @@ export class DiagnosticoComponent implements OnInit {
         .catch((error: GraphQLError) => {
           console.log(error);
         });
+    } else {
+      let conteudo = {
+        conteudo: anamneseValor.conteudo
+      }
+      this.apollo.mutate({
+        mutation: MUTATION_UPDATE_ANAMNESE,
+        variables: {
+          id: this.anamneseSelecionada.id,
+          input: conteudo
+        },
+        context: {
+          headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
+        }
+      })
+        .toPromise()
+        .then(({ data }) => {
+          console.log(anamneseValor);
+          anamneseValor.id = this.anamneseSelecionada.id;
+          this.anamneses.forEach((item, index) => {
+            if (item.id === this.anamneseSelecionada.id) this.anamneses[`${index}`] = anamneseValor;
+          });
+          this.editando = false;
+          this.anamneseSelecionada = null;
+        })
+        .catch((error: GraphQLError) => {
+          console.log(error);
+        });
     }
     this.doReset();
   }
   onDelete(): void {
-    this.dialogService.confirm(`Deseja deletar o paciente ${this.anamneseSelecionada} ?`)
+    this.dialogService.confirm(`Deseja deletar a anamnse ID ${this.anamneseSelecionada.id} ?`)
       .then((canDelete: boolean) => {
         if (canDelete) {
           this.apollo.mutate({
-            mutation: QUERY_ANAMNESES,
+            mutation: MUTATION_DELETE_ANAMNESE,
             variables: {
               id: this.anamneseSelecionada.id
             },
@@ -129,25 +155,12 @@ export class DiagnosticoComponent implements OnInit {
           })
             .toPromise()
             .then(({ data }) => {
-
-              this.apollo.mutate({
-                mutation: QUERY_ANAMNESES,
-                variables: {
-                  id: this.anamneseSelecionada.id
-                },
-                context: {
-                  headers: new HttpHeaders().set('authorization', `Bearer ${this.cookie.get('token')}`)
-                }
-              })
-                .toPromise()
-                .then(({ data }) => {
-                  if (data['deleteUserId']) {
-                    this.anamneses.forEach((item, index) => {
-                      if (item.id === this.anamneseSelecionada.id) this.anamneses.splice(index, 1);
-                    });
-                  }
-                  this.anamneseSelecionada = null;
-                })
+              if (data['deleteAnamnese']) {
+                this.anamneses.forEach((item, index) => {
+                  if (item.id === this.anamneseSelecionada.id) this.anamneses.splice(index, 1);
+                });
+              }
+              this.anamneseSelecionada = null;
             })
             .catch((error: GraphQLError) => {
               console.log(error);

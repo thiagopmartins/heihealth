@@ -1,4 +1,4 @@
-import { DiagnosticoComponent } from './dashboard/diagnostico/diagnostico.component';
+
 import { Title } from '@angular/platform-browser';
 import { SecretariaComponent } from './dashboard/secretaria/secretaria.component';
 import { NgModule } from "@angular/core";
@@ -9,6 +9,7 @@ import { LoginComponent } from "./login/login.component";
 import { MinhacontaComponent } from './dashboard/minhaconta/minhaconta.component';
 import { PacienteComponent } from './dashboard/paciente/paciente.component';
 import { RegistroComponent } from './registro/registro.component';
+import { AnamneseComponent } from './dashboard/anamnese/anamnese.component';
 
 const appRoutes: Routes = [
     {
@@ -55,10 +56,10 @@ const appRoutes: Routes = [
                 }
             },
             {
-                path: 'diagnostico',
-                component: DiagnosticoComponent,
+                path: 'anamnese',
+                component: AnamneseComponent,
                 data: {
-                    title: 'Diagnósticos'
+                    title: 'Anamnese'
                 }
             }
         ]

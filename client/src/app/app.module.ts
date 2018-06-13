@@ -13,11 +13,12 @@ import { Ng2BRPipesModule } from 'ng2-brpipes';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
-import { DiagnosticoComponent } from './dashboard/diagnostico/diagnostico.component';
+
+import { AnamneseComponent } from './dashboard/anamnese/anamnese.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { PacienteComponent } from './dashboard/paciente/paciente.component';
 import { RegistroComponent } from './registro/registro.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { SecretariaComponent } from './dashboard/secretaria/secretaria.component';
 import { MinhacontaComponent } from './dashboard/minhaconta/minhaconta.component';
 import { DialogService } from './dialog.service';
@@ -33,7 +34,7 @@ registerLocaleData(localePt, 'pt-BR');
     PacienteComponent,
     SecretariaComponent,
     MinhacontaComponent,
-    DiagnosticoComponent
+    AnamneseComponent
   ],
   imports: [
     AppRoutingModule,

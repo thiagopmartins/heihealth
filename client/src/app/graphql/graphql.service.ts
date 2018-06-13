@@ -148,6 +148,19 @@ export const MUTATION_CREATE_ANAMNESE = gql`
         }
     }
 `;
+export const MUTATION_UPDATE_ANAMNESE = gql`
+    mutation updateAnamnese($id: ID!, $input: AnamneseUpdateInput!){
+        updateAnamnese(id: $id, input: $input){
+            id
+        }
+    }
+`;
+
+export const MUTATION_DELETE_ANAMNESE = gql`
+    mutation deleteAnamnese($id: ID!){
+        deleteAnamnese(id: $id)
+    }
+`;
 
 
 

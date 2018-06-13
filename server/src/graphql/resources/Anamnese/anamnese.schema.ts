@@ -15,6 +15,10 @@ const anamneseTypes = `
         medico_id: Int!
         paciente_id: Int!
     }
+
+    input AnamneseUpdateInput {
+        conteudo: String!
+    }
 `;
 
 const anamneseQueries = `
@@ -25,7 +29,7 @@ const anamneseQueries = `
 
 const anamneseMutations = `
     createAnamnese(input: AnamneseCreateInput!): Anamnese
-    updateAnamnese(id:ID!, input: AnamneseCreateInput!): Anamnese
+    updateAnamnese(id:ID!, input: AnamneseUpdateInput!): Anamnese
     deleteAnamnese(id: ID!): Boolean
 `;
 
