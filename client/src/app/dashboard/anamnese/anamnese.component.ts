@@ -45,7 +45,10 @@ export class AnamneseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    if (this.cookie.get('previlegios') == 'false') {
+      this.router.navigate(['/dashboard']);
+      throw new Error('Usuário sem permissão!!');
+    }
     this.form = this.fb.group({
       sangue: [null],
       medicamentos: [null],

@@ -41,7 +41,7 @@
         <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
         Secretárias
       </a>
-      <a clrVerticalNavLink routerLink="./anamnese" routerLinkActive="active">
+      <a *ngIf="previlegios == 'true'" clrVerticalNavLink routerLink="./anamnese" routerLinkActive="active">
         <clr-icon clrVerticalNavIcon shape="helix"></clr-icon>
         Anamnese
       </a>      
